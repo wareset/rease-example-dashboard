@@ -14,7 +14,7 @@ function DashboardTopbar(
     style--z-index="1"
     
     style--height={'2em'}
-    style--backgroundColor={'rgba(0,0,0,0.5)'}
+    style--backgroundColor={'rgba(0,0,0,0.75)'}
 
     r-use={[useDashboardContextmenu(() => {
       <>TopBarContextMenu</>

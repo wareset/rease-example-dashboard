@@ -50,12 +50,13 @@ export const useClearHoverAndFocusListener = (ctx: any): any =>
 
 const title_btn = (
   name: string,
+  bg: string,
   onClick: Function
 ): void => {
   <button
     type="button"
     class={[
-      'btn btn-sm btn-primary',
+      'btn btn-sm btn-' + bg,
       'p-0 ms-2 lh-1 rounded-pill',
       'd-inline-flex justify-content-center align-items-center'
     ]}
@@ -151,7 +152,7 @@ export default function DesktopWindow(
   ;(
     <div
       id={id}
-      class={['card', 'position-absolute']}
+      class={['card', 'position-absolute', 'bg-dark text-white']}
 
       style={{
         top   : ($isFullscreen!! ? 0 : top) + '%',
@@ -162,7 +163,7 @@ export default function DesktopWindow(
         zIndex: $zi!!,
 
         minWidth : '4em',
-        minHeight: '4em'
+        minHeight: '4em',
       }}
 
       r-on-pointerdown={setZIindex}
@@ -236,9 +237,9 @@ export default function DesktopWindow(
         </div>
         <div class="text-nowrap">
           {(
-            title_btn('dash-lg', noop),
-            title_btn('plus-lg', toggleFullscreen),
-            title_btn('x-lg', windowClose)
+            title_btn('dash-lg', 'dark', noop),
+            title_btn('plus-lg', 'dark', toggleFullscreen),
+            title_btn('x-lg', 'danger', windowClose)
           )}
         </div>
       </div>
@@ -248,10 +249,10 @@ export default function DesktopWindow(
         style--z-index="1"
       >
         <div
-          class={['position-absolute', 'top-0', 'start-0', 'w-100', 'h-100']}
-          style--z-index="1"
+          style={'z-index:1;position:absolute;top:2px;bottom:2px;left:2px;right:2px;'}
+          // style--backgroundColor={'#ad3'}
         >
-          empty
+          <r-slot>empty</r-slot>
         </div>
 
         <div
