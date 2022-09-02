@@ -8,21 +8,26 @@ import { listenGlobal } from 'rease'
 import { useDashboardContextmenu, schema2contextmenu } from '../Contextmenu.rease'
 
 import { noop } from '../../../utils'
-import { randomTo, round, min, max } from '../../../utils/math'
+import { randomTo, min, max } from '../../../utils/math'
 import { random_string } from '../../../utils/string'
 import clearSelection from '../../../utils/clearSelection'
 
 import { onPan } from 'rease-use'
 
 import aliquot from 'aliquot'
-
+// @ts-ignore
+window.aliquot = aliquot
 const $GRID_COEF_W = subjectGlobal<number>(10)
 const $GRID_COEF_H = subjectGlobal<number>(10)
 subscribeSafeAllGlobal([$innerWidth, $innerHeight], ([w, h]) => {
   // $GRID_COEF_W.$ = 100 / ceil(100 / ($GRID_COEF_H.$ / w * h))
 
-  $GRID_COEF_W.$ = 100 / round(w / 50)
-  $GRID_COEF_H.$ = 100 / round(h / 50)
+  const wc = aliquot(w / 100, 6) || aliquot(w / 50, 3) || 2
+
+  $GRID_COEF_W.$ = 100 / wc
+  $GRID_COEF_H.$ = 100 / (aliquot(h / (w / wc), 6) || (w > h ? 2 : 3))
+
+  console.log($GRID_COEF_W.$, $GRID_COEF_H.$)
 })
 
 const $FOCUSED_ID = subjectGlobal<string>('')
@@ -162,8 +167,8 @@ export default function DesktopWindow(
         
         zIndex: $zi!!,
 
-        minWidth : '4em',
-        minHeight: '4em',
+        minWidth : $GRID_COEF_W!! + '%',
+        minHeight: $GRID_COEF_H!! + '%',
       }}
 
       r-on-pointerdown={setZIindex}
