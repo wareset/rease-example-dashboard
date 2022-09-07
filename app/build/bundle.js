@@ -1,2 +1,1648 @@
-!function(){"use strict";var t={svg:"http://www.w3.org/2000/svg",math:"http://www.w3.org/1998/Math/MathML"},s="undefined"!=typeof window,d={},n$1=t=>t&&t._&&t._.ir===d,c=Array.isArray,i=t=>"function"==typeof t,o=t=>null!=t&&i(t.then),a=t=>null!=t&&i(t.subscribe),x=/^(?:area|base|br|col|command|embed|hr|img|input|keygen|link|meta|param|source|track|wbr)$/,h=t=>x.test(t),A=Object,O=A.defineProperty,I=A.getPrototypeOf,W=A.getOwnPropertyDescriptor,v=()=>{},p=()=>v,g=t=>t,_=(t,s,d)=>{t.then((t=>{b(t,s,d)}))},b=(t,s,d)=>{o(t)?t.then((t=>{b(t,s,d)})):s(t,d)},E=(t,s,d)=>{if(t.length)for(var c=[],x=[t.length],A=x[0];A-- >0;)b(t[A],N,[c,A,x,s,d]);else s([],d)},m=t=>{var s,d=!1,c=[];return t((t=>{b(t,(t=>{d=!0,s=t;for(var x=0;x<c.length;x++)c[x][0](c[x][1](s))}))})),{then:t=>m((x=>{d?x(t(s)):c.push([x,t])}))}},N=(t,s)=>{s[0][s[1]]=t,--s[2][0]||s[3](s[0],s[4])},T=(t,s,d)=>{var n=()=>{s=v},c=[],x=t.subscribe((t=>{if(c.push(t),1===c.length){for(var x=0;x<c.length;x++)s(c[x],d,n);c=[]}}));return n=()=>{s=v,x&&(x.unsubscribe?x.unsubscribe():x()),x=null},s===v&&n(),n},L=(t,s,d)=>{var c=v,x=v,i=()=>{s=v,c(),x()};return x=T(t,((t,A,O)=>{x=O,c(),c=w(t,((t,x,A)=>{c=A,s(t,d,i)}))})),i},w=(t,s,d)=>{if(o(t))t=k(t);else if(!a(t))return s(t,d,v),v;return L(t,s,d)},y=(t,s,d)=>T(R(t),s,d),k=t=>({subscribe:(s,d)=>{var n=()=>{s=v};return _(t,(t=>{s(t,d,n)})),n}}),R=t=>({subscribe:(s,d)=>{t=t.slice();for(var c=[],x={},A=[0],o=()=>{for(var t in x)x[t]()},O=t.length,I=0;I<O;I++)x[I]=w(t[I],M,[I,O,c,x,A,[!1],s,d,o]);return o}}),S=(t,s)=>({subscribe:(d,c)=>{var x=v,A=v,o=()=>{d=v,x(),A()};return A=T(R(t),((t,O,I)=>{A=I,x(),x=w(s(t),((t,s,A)=>{x=A,d(t,c,o)}))})),o}}),M=(t,[s,d,c,x,A,O,I,W,j],G)=>{c[s]=t,x[s]=G,(A[0]===d||O[0]!==(O[0]=!0)&&++A[0]===d)&&I(c.slice(0),W,j)},j=/^style--/,G=/^class--/,C=t=>t,H=t=>{switch(typeof t){case"string":return t;case"object":var s="",d="";if(c(t))for(var x,A=0;A<t.length;A++)(x=H(t[A]))&&(s+=d+x,d=" ");else if(t)for(var O in t)t[O]&&(s+=d+O,d=" ");return s;default:return""}},P={},U=t=>P[t]||(P[t]=t.replace(/([A-Z])/g,"-$1").toLowerCase()),$=t=>{switch(typeof t){case"string":return t;case"object":var s="";if(c(t))for(var d,x=0;x<t.length;x++)(d=$(t[x]))&&(s+=d+(";"===d[d.length-1]?"":";"));else if(t)for(var A in t)null!=t[A]&&(s+=U(A)+":"+t[A]+";");return s;default:return""}},F=(t,s,d)=>{d?t.classList.add(s):t.classList.remove(s)},X=[(t,s,d,c)=>{if(d?t.setAttribute(s,d):t.removeAttribute(s),c._.ac)for(var x in c._.ac)F(t,x,c._.ac[x]);(t=>{t.home._is.css&&!t.home._is.css[2]&&t.node&&t.node.classList.add(t.home._is.css[1])})(c)},H],Y=[(t,s,d,c)=>{if(d?t.setAttribute(s,d):t.removeAttribute(s),c._.as)for(var x in c._.as)t.style[x]=c._.as[x]},$],q=[(t,s,d,c)=>{F(t,s=s.slice(7),c._.ac[s]=d)},C],K=[(t,s,d,c)=>{t.style[s=s.slice(7)]=c._.as[s]=d},C],V=[(t,s,d)=>{"_"===s[0]||D(t.localName,s,t).set?t[s]=d:null==d||""===d?t.removeAttribute(s):t.getAttribute(s)!==d&&t.setAttribute(s,d)},C],z=(t,s)=>"class"===t?X:"style"===t?Y:G.test(t)?(s.ac||(s.ac={}),q):j.test(t)?(s.as||(s.as={}),K):V,ee={},D=(t,s,d)=>(ee[t]||(ee[t]={}))[s]||(ee[t][s]=W(I(d),s)||{}),te=(()=>{if(!s)return p;var t,d,x,A,o=t=>{t.cancelable&&t.preventDefault()},a=t=>{t.stopPropagation()},l=(t,s)=>function(d){for(var c=0;c<t.length;c++)t[c].call(this,d,s)},h=t=>function(s){s.target===this&&t.call(this,s)},u=t=>function(s){s.isTrusted&&t.call(this,s)},f=(t,s,d)=>function(c){((t,s)=>{var d=s;for(var c in W){if(!(W[c][0]in t)&&!(W[c][1]in t))return!1;d--}return!d})(s,d)&&t.call(this,c)},I=[],W={},_=()=>{_=v,document.addEventListener("keyup",(t=>{delete W[t.code+t.key]}),!1),document.addEventListener("keydown",(t=>{W[t.code+t.key]=[t.code,t.key];for(var s=0;s<I.length;s++)I[s][0].length?I[s][1].call(document.body,t):I.splice(s--,1)}),!1)},b=t=>function(s){x&&(x===this||this.contains(x))&&t.call(this,s)},E=t=>function(s){A&&(A===this||this.contains(A))&&t.call(this,s)},m=t=>function(s){(!x||x!==this&&!this.contains(x))&&t.call(this,s)},N=t=>function(s){(!A||A!==this&&!this.contains(A))&&t.call(this,s)},T=s=>function(d){(!t||t!==this&&!this.contains(t))&&s.call(this,d)},L=t=>function(s){(!d||d!==this&&!this.contains(d))&&t.call(this,s)},w=t=>function(s){x&&x!==this&&!this.contains(x)&&t.call(this,s)},y=t=>function(s){A&&A!==this&&!this.contains(A)&&t.call(this,s)},j=!1,R=()=>{R=v;try{window.addEventListener("test",v,O({},"passive",{get:()=>!(j=!0)}))}catch(t){}var s,c="start move end".split(" "),[I,W,G]=c,h=t=>{var s=document.createEvent("CustomEvent");return s.initCustomEvent(t,!0),s},u=(t,s)=>{t.dispatchEvent(s)},f=(s,c,O)=>{O&&1!==s.touches.length||(t=x,d=A,x=s.target,A=c===I?x:A,t!==x&&(t&&u(t,h("unhover")),u(x,h("inhover"))),d!==A&&(d&&u(d,h("unfocus")),u(A,h("infocus"))))};if("onpointermove"in document)s={pointerdown:t=>{f(t,I,!1)},pointermove:t=>{f(t,W,!1)},pointerup:t=>{f(t,G,!1)},pointercancel:t=>{f(t,G,!1)}};else{var P=0,p=(t,s)=>{++P>=(P=1)&&f(t,s,!1)},g=(t,s)=>{--P<=(P=-1)&&f(t,s,!0)};s={mousedown:t=>{p(t,I)},mousemove:t=>{p(t,W)},mouseup:t=>{p(t,G)},touchstart:t=>{g(t,I)},touchmove:t=>{g(t,W)},touchend:t=>{g(t,G)},touchcancel:t=>{g(t,G)}}}for(var X in s)document.addEventListener(X,s[X],!0)};return(t,s,d,x)=>{for(var A,O,W=c(d)?d.slice():[d],G=l(W,x),P={},X=0,M=()=>{W.length=0,A&&t.removeEventListener(A,G,te)},Y=!1,q=!1,K=!1,V=s.split(/[^a-z\d]+/i),ee=V.length;ee--;)if(O=V[ee])switch(O){case"once":W.push(M);break;case"strict":K=!0;break;case"passive":Y=!0;break;case"capture":q=!0;break;case"self":G=h(G);break;case"trusted":G=u(G);break;case"stop":W.unshift(a);break;case"prevent":W.unshift(o);break;case"inhovered":G=b(G);break;case"infocused":G=E(G);break;case"unhovered":G=m(G);break;case"unfocused":G=N(G);break;default:if(1===O.length||/[A-Z]/.test(O[0]))O in P||(P[O]=!0,X++);else if(!ee)switch(A=O){case"inhover":G=T(G);break;case"infocus":G=L(G);break;case"unhover":G=w(G);break;case"unfocus":G=y(G)}}var te=j?{passive:Y,capture:q}:q;return R(),(X||K)&&(_(),G=f(G,P,X)),A?t.addEventListener(A=V[0],G,te):I.push([W,G]),M}})(),B=(t,s)=>d=>te(d.node,t,s,d),oe=(()=>{if(!s)return p;var t,d="__REASE_RESIZE",c=setTimeout,x=clearTimeout,i=s=>{for(var c,x,A,O,I=0;I<s.length;I++)if((x=(c=s[I].target)[d])&&x.l.length){if(A=c.offsetWidth||c.clientWidth,O=c.offsetHeight||c.clientHeight,x.w!==A||x.h!==O){x.w=A,x.h=O;for(var W,j={width:A,height:O,target:c},G=x.l,P=0;P<G.length;P++){W=G[P];for(var X=1;X<W.length;X++)W[X].call(c,j,W[0]);W.length||G.splice(P--,1)}x.l.length||t.unobserve(c)}}else t.unobserve(c)},o=()=>{o=v;try{t=new ResizeObserver(i)}catch(O){var s,A=[],l=()=>{x(s),i(A),A.length&&(s=c(l,25))};t={observe:t=>{A.push({target:t}),c(l)},unobserve:t=>{c((t=>{var s=t[d];if(!s||!s.l.length)for(var c=A.length;c--;)if(A[c].target===t){A.splice(c,1);break}}),1,t)}},document.addEventListener("visibilitychange",(()=>{document.hidden?x(s):l()}),!1)}};return(s,x,A)=>{o();var O=[A].concat(x),I=s[d]||(s[d]={l:[]});I.l.push(O),1===I.l.length&&t.observe(s);var W=c((()=>{var t=s.offsetWidth||s.clientWidth,d=s.offsetHeight||s.clientHeight,c={width:t,height:d,target:s};I.w=t,I.h=d;for(var x=1;x<O.length;x++)O[x].call(s,c,O[0])}));return O.push((()=>{clearTimeout(W),O.pop()})),()=>{O.length=0,!I.l[1]&&(!I.l[0]||I.l[0]===O)&&t.unobserve(s)}}})(),Z=t=>s=>oe(s.node,t,s),J=(t,s,d)=>{t._value=s;var c=t._;c.break=!0;var x,A,O=c.items,I=c.queue;if(I.push({f:d,n:s}),1===I.length){for(var W,j=0;j<I.length;j++)if((W=I[j].f)||j>I.length-2){c.break=!1;for(var G=I[j],P=0;P<O.length;P++)if((W||(A=void 0,!((t,s)=>t==t?t===s:s!=s)(O[P].o,x=G.n)||null!=(A=x)&&"object"==typeof A||i(x)))&&O[P].s(t._value=O[P].o=G.n),!W&&c.break){O[P].o=t._value;break}}c.queue=[]}return t};class ReaseSubject{constructor(t,s,d,c){this._={items:[],queue:[],mwSet:d||(d=g),mwGet:c||g,onFst:s||v,onLst:v,break:!1},this._value=d(t,this)}get on(){return this._.items.length>0}get value(){return this._value}get(){return this._.mwGet(this._value,this)}set(t){return J(this,this._.mwSet(t,this),!1)}next(t){return J(this,this._.mwSet(t,this),!0)}clear(){for(var t=this._.items,s=t.length;s-- >0;)t[s].u();return this}subscribe(t,s){var d={s:c=>{t(c,s,d.u)},u:()=>{if(d.s!==v){for(var t=x.length;t-- >0;)if(x[t].s===d.s){x.splice(t,1);break}d.s=d.u=v,x.length||c.onLst(this)}},o:{}},c=this._,x=c.items;return x.length||(c.onLst=c.onFst(this)||v),x.push(d),c.queue.length||d.s(d.o=this._value),d.u}}var ne=ReaseSubject.prototype;O(ne,"$",{get:ne.get,set:ne.set});for(var Q=function(t,s){O(ne,t[s],{value:function(){var d=this.get();return d=null!=d&&d[t[s]]?d[t[s]](arguments):d,s?d+"":d}})},re=["valueOf","toString","toJSON"],se=3;se-- >0;)Q(re,se);var ie,fe,ge,_e=S,ke={ROOT:"ROOT",COMPONENT:"COMPONENT",ELEMENT:"ELEMENT",ELEMENT_DYNAMIC:"ELEMENT_DYNAMIC",FRAGMENT:"FRAGMENT",SLOT:"SLOT",TEXT:"TEXT",EXPRESSION:"EXPRESSION",COMMENT:"COMMENT",HTML:"HTML",RULES:{TAG:"RULE_TAG",IF:"RULE_IF",ELIF:"RULE_ELIF",ELSE:"RULE_ELSE",WATCH:"RULE_WATCH",AWAIT:"RULE_AWAIT",THEN:"RULE_THEN",FOR:"RULE_FOR"}},ae=t=>{ge=t,ie=t.high,fe=t.home},le=t=>{ge=t.parent},he=()=>{ge=null};function ce(t){var s=n$1(this)?this:ge;if(!n$1(s))throw t;s.on?(s._.od||(s._.od=[])).push(t):t(s)}var Se,de=(t,s,d)=>{if(!n$1(t))throw t;var c=ge,x=ie,A=fe;ae(t),t.type===ke.COMPONENT&&(ie=fe=t);var O=s.apply(t,d);return ge=c,ie=x,fe=A,O},ve=()=>ge,pe=t=>{if(t._.esu)for(var s,d=t._.esu;d.length;)(s=d.pop())&&i(s=s.destroy||s)&&(ae(t),s(t))},$e={3:[],8:[]},Re=/^(?:script|style|audio|video|button|datalist|fieldset|form|input|label|legend|meter|optgroup|option|output|progress|select|textarea|iframe|object|embed)$/i,be=(t,s)=>{var d=t.nodeType;if(3===d||8===d)$e[d].length<s&&$e[d].push(t);else if(1===d&&!Re.test(t.localName)&&((d=t.localName+t.namespaceURI)in $e||($e[d]=[]),$e[d].length<s)){for(var c=t.childNodes,x=c.length;x-- >0;)t.removeChild(c[x]);t.value&&(t.value=null),t.type&&(t.type=null),$e[d].push(t)}},Ee=t=>{if(t._.od)for(;t._.od.length;)t._.od.pop()(t)},me=t=>{if(t&&t.on){t.on=!1,pe(t),Ee(t),ye(t),t._.ods&&t._.ods();var s=t.node;s&&s.parentNode&&s.parentNode.removeChild(s),Ne(t),s&&be(s,25),t._.$&&(t._.$=1,Ce(t))}},Ne=t=>{for(;t.children.length;)me(t.children.pop())},Te=(t,s)=>{t._.ods=s,t.on||t._.ods()},Le=t=>s=>{if(s.root.node)for(var d,c,x=s;;)if(d=(x=x.parent).node){1===d.nodeType?(t(s,d),d.appendChild(s.node)):(t(s,d=(c=d).parentNode),d.insertBefore(s.node,c));break}},we=t=>{var s,d,c,x=t.attrs;for(var A in t.props)if(d=x[A]={is:null,_is:s=t.props[A],high:t.high,_:{$:0,u:v}},a(s)||o(s)&&(s=k(s),1)){if(Oe(d),d._.u=L(s,((t,[s,d,c,x],A)=>{d._.u=A,s.on?d.is!==(d.is=t=x[1](t))&&s.node&&x[0](s.node,c,t,s):A(),Ce(d)}),[t,d,A,z(A,t._)]),!t.on){d._.u();break}}else c=z(A,t._),d.is=s=c[1](s),t.node&&c[0](t.node,A,s,t)},ye=t=>{var s=t.attrs;if(s){t.attrs=null;var d=t.node;for(var c in s)d&&(d.hasAttribute(c)?d.removeAttribute(c):c in d&&(d[c]=null)),s[c]._.u(),Ce(s[c])}},Me=(Se=Le(((s,d)=>{var c=t[s.is]||d.namespaceURI,x=s.is+c,A=x in $e&&$e[x].pop();if(A)for(var O=A.attributes,I=O.length;I-- >0;)A.removeAttribute(O[I].name);else A=document.createElementNS(c,s.is);s.node=A,(t=>{if(t.use)for(var s=t._.esu||(t._.esu=[]),d=0;d<t.use.length;d++)if(ae(t),s.push(t.use[d](t)),!t.on){pe(t);break}})(s),we(s),ae(s)})),t=>{t.attrs={},Se(t),t.node||we(t)}),Fe=Le((t=>{$e[3].length?(t.node=$e[3].pop()).data="":t.node=document.createTextNode("")})),Ue=Le((t=>{$e[3].length?(t.node=$e[3].pop()).data=t.is:t.node=document.createTextNode(t.is)})),Pe=Le((t=>{$e[8].length?(t.node=$e[8].pop()).data=t.is:t.node=document.createComment(t.is)})),Ae=(t,s,c,x,A,O)=>ge=ge.children[ge.children.push({type:t,name:O,is:c,_is:s,node:null,props:x,use:A,root:ge.root,home:fe,high:ie,parent:ge,children:[],slots:null,attrs:null,on:ge.on,pub:{},_:{ir:d,$:0}})-1],Oe=t=>{t.high._.$++,t._.$++},Ce=t=>{if(t&&t._.$>0)if(t._.$--,t.type!==ke.COMPONENT&&t.type!==ke.ROOT)Ce(t.high);else if(0===t._.$){t._.$=NaN;var s=t._.oc;if(s){for(var d=[],c=0;c<s.length&&(ae(t),d.push(s[c](t)),t.on);c++);he(),E(d,((t,s)=>{if(s.on){for(var d=t.length;d--;)i(t[d])&&ce(t[d]);Ce(s.high)}else for(var c=t.length;c--;)i(t[c])&&(ae(s),t[c](s));he()}),t)}else Ce(t.high)}},He=t=>{if(ge.on&&void 0!==t&&""!==t){var s=Ae(ke.EXPRESSION,t,"");Ue(s),Oe(s),Te(s,w(t,((t,s,d)=>{s.on?(Ne(s),i(t)&&(ae(s),t=t.call(s),he()),t=void 0===t?"":""+t,s.is!==(s.is=t)&&s.node&&(s.node.data=t)):d(),Ce(s)}),s)),le(s)}},Ie=t=>{ge.on&&void 0!==t&&""!==t&&(Ue(Ae(ke.TEXT,t,""+t)),le(ge))},Xe={},Ge=(t,s)=>{for(var d,c=t.children,x=0;x<c.length;x++){if(!(d=c[x]).node||1!==d.node.nodeType)if(d.type===ke.HTML)for(;d._.html.length;)s.appendChild(d._.html[0]);else Ge(d,s);d.node&&s.appendChild(d.node)}},je=t=>t[1](),We=s=>{var d=ge;d.slots=s,Oe(d),Te(d,w(d._is,((s,d,c)=>{if(d.on){if(d.is!==(d.is=s)){switch(typeof s){case"function":Ne(d),ae(d),qe(s,d.props,d.use)(d.slots);break;case"string":if("r-slot"===s)Ne(d),ae(d),ze(d._.sn,d.props,d.use)((()=>{d.slots.forEach(je)}));else{var x=d.children[0],A=h(s),O=!x||x.type!==ke.ELEMENT&&x.type!==ke.FRAGMENT||A||s in t,I=!!d.root.node;if("r-fragment"===s){if(O)Ne(d),ae(d),Qe(d.props,d.use)(d.slots.forEach(je));else if(pe(x),Ee(x),ye(x),x.type=ke.FRAGMENT,x.is=null,I){var W=x.node,j=W.parentNode;j.removeChild(W),Fe(x);for(var G=x.node,P=W.childNodes,X=P.length;X-- >0;)j.insertBefore(P[X],G),G=P[X]}}else if(O||x&&(x.is in t||h(x.is)))Ne(d),ae(d),Ye(s,d.props,d.use)(A||d.slots.forEach(je));else{pe(x),Ee(x),ye(x);var Y=x.type;if(x.type=ke.ELEMENT,x.is=s,I){var q=x.node;if(q.parentNode.removeChild(q),Me(x),Y!==ke.FRAGMENT)for(var K=q.childNodes;K.length;)x.node.appendChild(K[0]);else Ge(x,x.node);Be()}}}break;default:Ne(d)}he()}}else c();Ce(d)}),d)),le(d)},xe=t=>{for(var s=ge,d=s.home.slots,c=0;c<d.length&&(d[c][0]!==s._is||(ge=s,ie=s.high,fe=s.home.home,s.is=!0,d[c][1](),s.on));c++);s.is?(ie=s.high,fe=s.home):t&&t.call(s),le(s)},ze=(t,s,d)=>ge.on?(Fe(Ae(ke.SLOT,t,!1,s,d,t)),xe):v,De=t=>{var s=ge;s.slots=t,Oe(s),ie=fe=s,s.is.call(s,s.props),Ce(s),ie=s.high,fe=s.home,le(s)},qe=(t,s,d)=>ge.on?(Ae(ke.COMPONENT,t,t,s||{},d,t.name),((t,s)=>{s&&!(s[1]in t.css)&&(i(s[0])&&(s[0]=s[0]("."+s[1])),t.css[s[1]]="",t._.$++,t._.od.push(w(s[0],((t,[s,d,c,x,A],O)=>{if(s.on){if(c[0]!==(c[0]=t)&&(s.css[d]=t,s.node)){var I=x[0]||(x[0]=document.getElementById(d)||(t=>{var s=document.createElement("style");return s.id=t,document.head.appendChild(s),s})(d));I.textContent!==t&&(I.textContent=t)}}else O();A[0]&&(A[0]=!1,Ce(s))}),[t,s[1],[""],[null],[!0]])))})(ge.root,t.css),De):v,Be=()=>{var t=ge;(t=>{if(t._.esu)for(var s,d=t._.esu,c=0;c<d.length;c++)if((s=d[c])&&i(s=s.created)&&(ae(t),s(t),!t.on)){pe(t);break}})(t),le(t)},Ye=(t,s,d)=>ge.on?(Me(Ae(ke.ELEMENT,t,t,s||{},d)),Be):v,Ze=t=>{t.call(ge)},Ke=()=>{le(ge)},Qe=(t,s)=>ge.on?(Fe(Ae(ke.FRAGMENT,null,null,t,s)),Ke):v,Ve=(t,s)=>s>0?!t:t,et=t=>{var s=ge;Oe(s),Te(s,T(R(s.parent._.if),((t,[s,d,c],x)=>{s.on?s.is!==(s.is=t.every(Ve))&&(s.is?(ae(s),d.call(s,t[c]),he()):(Ee(s),Ne(s))):x(),Ce(s)}),[s,t||v,s.parent._.if.length-1])),le(s)},tt=(t,s,d)=>ge.on?(Fe(Ae(ke.RULES.IF,t,!1,s,d)),ge.parent._.if=[t],et):v,st=t=>{var s=ge;Oe(s),Te(s,w(s._is,((t,[s,d],c)=>{s.on?(Ee(s),Ne(s),ae(s),d.call(s,s.is=t),he()):c(),Ce(s)}),[s,t||v])),le(s)},ot=t=>{var s=ge,d=[!0];Te(s,w(s._is,((t,[s,d],c)=>{d[0]=!1,s.is=s.parent._.await=t,c(),Ee(s),Ne(s)}),[s,d])),d[0]&&t&&s.on&&(ae(s),t.call(s,s.is),he()),le(s)},lt=t=>{var s=ge;Oe(s),Te(s,w(s._is,((t,[s,d],c)=>{c(),s.on&&(ae(s),d.call(s,s.is=t),he()),Ce(s)}),[s,t||v])),le(s)},ut=t=>t>0?1:t<0?-1:0,ct=(t,s,d,c,x)=>{var A;return ae(t),Qe(t.props,t.use)(((A=ge)._.for=[d,s],x.call(t,s,d,c))),he(),A},ft=t=>{var s=ge;Oe(s),Te(s,w(s._is,((t,[s,d,x,A],O)=>{if(s.on){var I=s.children,W=typeof t;if(s.is!==(s.is=t)||"object"===W){var j;if(t)switch(W){case"number":if(j=ut(t|=0))if(A[0]!==(A[0]=W)||ut(x[0])!==j){Ne(s);for(var G=0,P=0;G!==t&&(ct(s,G+j,P++,t,d),s.on);G+=j);}else if(j===ut(t-x[0]))for(var X=x[0],Y=X*j;X!==t&&(ct(s,X+j,Y++,t,d),s.on);X+=j);else for(var q=t*j;I.length>q;)me(I.pop());else Ne(s);break;case"string":if(A[0]!==(A[0]=W)){Ne(s);for(var K=0;K<t.length&&(ct(s,t[K],K,t,d),s.on);K++);}else{for(var V=!1;I.length>t.length;)me(I.pop());for(var ee=0;ee<t.length;ee++)if(t[ee]!==x[0][ee]){if(!V)for(V=!0;I.length>ee;)me(I.pop());if(ct(s,t[ee],ee,t,d),!s.on)break}}break;case"object":if(c(t)){var te=new Map;if(A[0]!==(A[0]="a"))for(var oe,ne=0;ne<t.length&&(te.set(t[ne],(oe=te.get(t[ne]))?oe+1:1),ct(s,t[ne],ne,t,d),s.on);ne++);else{for(var re,se=0;se<t.length;se++)if(te.set(t[se],(re=te.get(t[se]))?re+1:1),re=x[0].get(t[se]))x[0].set(t[se],re-1);else if(ct(s,t[se],se,t,d),!s.on)break;for(var ie,fe,ge=I.length;ge--;)(fe=x[0].get(ie=I[ge]._.for[1]))&&(x[0].set(ie,fe-1),me(I.splice(ge,1)[0]))}t=te}else if(A[0]!==(A[0]=W)){for(var _e in Ne(s),t)if(ct(s,t[_e],_e,t,d),!s.on)break}else{for(var ke,Se={},$e=I.length;$e--;)t[(ke=I[$e]._.for)[0]]===ke[1]?Se[ke[0]]=!0:me(I.splice($e,1)[0]);for(var Re in t)if(!0!==Se[Re]&&(ct(s,t[Re],Re,t,d),!s.on))break}break;default:throw t}else A[0]="",Ne(s);x[0]=t}}else O();Ce(s)}),[s,t,[null],[""]])),le(s)},vt=t=>{if(t.parentNode&&t.parentNode.removeChild(t),t.childNodes)for(var s=t.childNodes,d=s.length;d-- >0;)vt(s[d]);be(t,999)},pt=(t,[s,d,c,x,A])=>{var O=ge,I=ie,W=fe;if(A&&s.node)for(var j,G=s.node.childNodes,P=G.length;P-- >0;)"script"!==(j=G[P]).localName&&"style"!==j.localName&&vt(j);ie=fe=ge=s,s._.$++,qe(d,c,x)((ce((t=>{t.root.node=null,me(t.root)})),[])),Ce(s),ge=O,ie=I,fe=W},gt=(t,{hydrate:s=!0,target:d=null,pub:c={},props:x={},use:A,beforeCreated:O=null,onCreated:I=null}={})=>{var W=ge;ge={on:!0,_:{},children:[]};var j=Ae(ke.ROOT,null,null,{},void 0);j.css={},j.high=j.home=j.parent=null,j.pub=c,j.node=d,j.root=j,I&&(j._.oc=[I]),ce((t=>{t.node=null})),ge=W;var G=[j,t,x,A,s];O?b(O(j),pt,G):pt(0,G)},_t=(t,s)=>{if(n$1(t)||n$1(t=ve()))return t;throw"not external "+s.name},bt=(t,s,d,c)=>new ReaseSubject(t,s,d,c),Je=function e(t,s,d,c){var x=_t(this,e),A=bt(t,s,d,c);return ce.call(x,(()=>{A.clear()})),A},nt=function e(t,s,d){var c=_t(this,e),x=T(t,s,d);return ce.call(c,x),x},rt=function e(t,s,d){var c=_t(this,e),x=w(t,s,d);return ce.call(c,x),x},Lt=t=>{if(n$1(t)){if(t.parent)for(var s=t.parent.children,d=s.length;d-- >0;)if(s[d]===t){s.splice(d,1);break}me(t)}},it=function e(t,s,d,c){var x=_t(this,e),A=te(t,s,d,c);return ce.call(x,A),A},at=s?window:{innerWidth:0,innerHeight:0,outerWidth:0,outerHeight:0},dt=0,St=()=>{mt.$=yt.$=wt.$=Et.$=-1},Mt=()=>{setTimeout(St)},ht=s?()=>(dt++||window.addEventListener("resize",Mt),()=>{--dt||window.removeEventListener("resize",Mt)}):p,Ot=()=>at.innerWidth,Ct=()=>at.innerHeight,Ht=()=>at.outerWidth,It=()=>at.outerHeight,mt=bt(0,ht,Ot,Ot),yt=bt(0,ht,Ct,Ct),wt=bt(0,ht,Ht,Ht),Et=bt(0,ht,It,It),xt=Object.freeze({__proto__:null,$innerHeight:yt,$innerWidth:mt,$outerHeight:Et,$outerWidth:wt,ReaseSubject:ReaseSubject,TYPES:ke,_$:_e,_c:qe,_d:(t,s,d,c)=>{var x=v;if(ge.on){var A=Ae(ke.ELEMENT_DYNAMIC,c,t,s||{},d);Oe(A),Te(A,w(c,((t,[s,d],c)=>{if(s.on)if(s.is!==(t||(t=d))&&s.node){pe(s),Ee(s),ye(s),s.is=t;var x=s.node;x.parentNode.removeChild(x),Me(s);for(var A=x.childNodes;A.length;)s.node.appendChild(A[0]);Be()}else s.is=t;else c();Ce(s)}),[A,t])),A.on&&(ae(A),Me(A),x=Be)}return x},_e:Ye,_f:Qe,_fc:Ze,_h:(t,s)=>{if(ge.on){var d=Ae(ke.HTML,t,"");Fe(d),Oe(d),Te(d,w(t,((t,[s,d,c],x)=>{if(s.on){if(t=void 0===t?"":""+t,s.is!==(s.is=t)&&s.node){for(var A;d.length;)(A=d.pop()).parentNode.removeChild(A);if(t){var O=s.node.parentNode,I=O.namespaceURI;(Xe[I]||(Xe[I]=document.createElementNS(I,"div"))).innerHTML=c?c.createHTML(t):t;for(var W=Xe[I].childNodes,j=0;j<W.length;j++)d.push(A=W[j]),O.insertBefore(A,s.node)}}}else x();Ce(s)}),[d,d._.html=[],s])),le(d)}},_n:t=>{if(ge.on&&void 0!==t&&""!==t){var s=Ae(ke.COMMENT,t,"");Pe(s),Oe(s),Te(s,w(t,((t,s,d)=>{s.on?(t=void 0===t?"":""+t,s.is!==(s.is=t)&&s.node&&(s.node.data=t)):d(),Ce(s)}),s)),le(s)}},_ra:(t,s,d)=>ge.on?(Fe(Ae(ke.RULES.AWAIT,ge._.await=t,void 0,s,d)),ot):v,_rd:(t,s,d,c)=>ge.on?(Fe(Ae(ke.RULES.TAG,t,null,s||{},d)),ge._.sn=c,We):v,_re:(t,s)=>ge.on?(Fe(Ae(ke.RULES.ELSE,null,!1,t,s)),ge.parent._.if=[!0,...ge.parent._.if||[!0]],et):v,_rf:(t,s,d)=>ge.on?(Fe(Ae(ke.RULES.FOR,t,null,s,d)),ft):v,_ri:tt,_rl:(t,s,d)=>ge.on?(Fe(Ae(ke.RULES.ELIF,t,!1,s,d)),ge.parent._.if=[t,...ge.parent._.if||[!0]],et):v,_rt:(t,s)=>ge.on?(Fe(Ae(ke.RULES.THEN,ge._.await,void 0,t,s)),lt):v,_rw:(t,s,d)=>ge.on?(Fe(Ae(ke.RULES.WATCH,t,void 0,s,d)),st):v,_s:ze,_t:Ie,_ul:B,_ur:Z,_x:He,context:ve,createReaseApp:gt,destroy:Lt,involve:de,isContext:n$1,isSubject:t=>t instanceof ReaseSubject,isSubscribable:a,isThenable:o,listen:it,listenGlobal:te,onCreated:function ue(t){var s=n$1(this)?this:ge;if(!n$1(s))throw t;if(s.type!==ke.COMPONENT)throw t;s.on?(s._.oc||(s._.oc=[])).push(t):t(s)},onDestroy:ce,resize:function e(t,s,d){var c=_t(this,e),x=oe(t,s,d);return ce.call(c,x),x},resizeGlobal:oe,subject:Je,subjectGlobal:bt,subscribablefySafeAll:R,subscribablefySafeAllWithProxy:S,subscribablefyThenable:k,subscribe:nt,subscribeGlobal:T,subscribeSafe:rt,subscribeSafeAll:function(t,s,d){var c=_t(this,rt),x=y(t,s,d);return ce.call(c,x),x},subscribeSafeAllGlobal:y,subscribeSafeGlobal:w,then:_,thenSafe:b,thenSafeAll:E,thenablefy:m});const[kt,Tt,$t]=(()=>{let t;const s=bt(null),hideDashboardContextmenu=()=>{s.$=null};return[function DashboardContextmenu(){const d=Je(0),c=Je(0),resizer=s=>{d.$=t.clientX,c.$=t.clientY,d.$+s.width>window.innerWidth&&(d.$-=s.width),c.$+s.height>window.innerHeight&&(c.$-=s.height)};tt(s)((([t,s])=>{Ye("div",{class:["position-absolute","top-0","bottom-0","start-0","end-0"],"style--z-index":"1"},[B("pointerdown-prevent-stop-self",hideDashboardContextmenu)])(Ze((()=>{it(window,"resize",hideDashboardContextmenu),Ye("div",{class:["position-fixed","animated zoomIn","dropdown-menu dropdown-menu-dark show"],style:"--animate-duration: 0.125s","style--left":_e([d],(t=>t[0]+"px")),"style--top":_e([c],(t=>t[0]+"px"))},[Z(resizer),B("contextmenu-prevent-stop",(()=>{})),B("click-prevent-stop",hideDashboardContextmenu)])(Ze((()=>{t(s)})))})))}))},(d,c)=>x=>te(x.node,"contextmenu-prevent-stop"+(c?"":"-self"),(c=>{t=c,s.$=[d,x]})),t=>s=>{for(const d of t)d?Ye("li")(Ye("button",{type:"button",class:"dropdown-item"},[B("click",(()=>{d.click(s)}))])(He(d.title))):Ye("li")(Ye("hr",{class:"dropdown-divider"})())}]})(),noop=()=>{},Nt=Math.random,{round:Rt,ceil:At,floor:zt,max:Ft,min:Dt}=Math,random=()=>Nt()||random(),randomTo=(t,s=t)=>Rt(random()*(s-t)+t);var clearSelection=()=>{window.getSelection?window.getSelection().empty?window.getSelection().empty():window.getSelection().removeAllRanges&&window.getSelection().removeAllRanges():document.selection&&document.selection.empty()},n=(t,s)=>d=>{var c=d.node,x={ctx:d,isDown:!1,isMove:!1,dx:0,dy:0,ox:0,oy:0},A=[//! FIX FOR MOBILES
-te(c,"touchstart-prevent-stop",[]),te(c,"touchmove-prevent-stop",[]),te(c,"pointerdown",((t,s)=>{s.isDown=!0,s.isMove=!1,s.ox=s.oy=0,s.dx=t.clientX,s.dy=t.clientY}),x),te(document,"pointermove",((d,c)=>{if(c.isMove){var x=d.clientX,A=d.clientY,O=x-c.dx,I=A-c.dy;c.ox+=O,c.oy+=I,t({type:"move",event:d,detail:s,delta:{x:O,y:I},offset:{x:c.ox,y:c.oy}},c.ctx),c.dx=x,c.dy=A}else c.isDown&&(c.isDown=!1,c.isMove=!0,t({type:"start",event:d,detail:s,delta:{x:0,y:0},offset:{x:0,y:0}},c.ctx))}),x),te(document,"pointerup",((d,c)=>{c.isMove&&(c.isDown=c.isMove=!1,t({type:"end",event:d,detail:s,delta:{x:0,y:0},offset:{x:c.ox,y:c.oy}},c.ctx))}),x)];return()=>{for(var t=A.length;t--;)A[t]()}},r=(t,s,d)=>{var c=1;s<0&&(s=-s),t<0&&(c=-1,t=-t);var x=(t+=s)%s;t-=x+s;var A=c>0?x>=s/2:x>s/2;return A&&(t+=s),d&&(t+=s*d*c,x&&c>0!==(d<0&&!A||d>0&&A)||(t-=(d>0?s:-s)*c)),t&&t*c};window.aliquot=r;const Wt=bt(10),Ut=bt(10);y([mt,yt],(([t,s])=>{const d=r(t/100,6)||r(t/50,3)||2;Wt.$=100/d,Ut.$=100/(r(s/(t/d),6)||(t>s?2:3)),console.log(Wt.$,Ut.$)}));const jt=bt(""),Gt=bt("");let Pt=1;const Xt={},useClearHoverAndFocusListener=t=>te(t.node,"pointerdown-capture",(()=>{Gt.$=jt.$=""})),title_btn=(t,s,d)=>{Ye("button",{type:"button",class:["btn btn-sm btn-"+s,"p-0 ms-2 lh-1 rounded-pill","d-inline-flex justify-content-center align-items-center"],"style--width":"1.625em","style--height":"1.625em"},[B("click",d)])(Ye("i",{role:"img","aria-label":t,class:[`bi-${t}`],style:"margin-bottom:-0.0625em;"})())},Yt=bt(""),showResizeGrid=t=>{Yt.$=t},hideResizeGrid=()=>{Yt.$=""},setSize=(t,s)=>100/parseFloat(t)*s;function DesktopWindow({title:t,top:s,left:d,right:c,bottom:x}={}){const A=this.pub.id=randomTo(1e16,9e16).toString(36),O=randomTo(30,60),I=randomTo(30,60);null==s&&(s=randomTo(0,100-I)),null==d&&(d=randomTo(0,100-O)),null==c&&(c=randomTo(0,100-O-d)),null==x&&(x=randomTo(0,100-I-s));const setTop=t=>s=r(Ft(t,0),Ut.$),setLeft=t=>d=r(Dt(t,100-Wt.$),Wt.$),setRight=t=>c=r(Dt(t,100-Wt.$),Wt.$),setBottom=t=>x=r(Dt(t,100-Ut.$),Ut.$);setTop(s),setLeft(d),setRight(c),setBottom(x);const setZIindex=()=>{((t,s)=>{if(Pt>4e9){for(const t in Xt)Xt[t].$=1;t.$=Pt=2}else Pt!==t.$&&(t.$=++Pt);Gt.$=jt.$=s})(W,A)},W=Xt[A]=Je(-1);ce((()=>{delete Xt[A]})),setZIindex();const windowClose=()=>{Lt(this)},j=Je(!1),toggleFullscreen=()=>{j.$=!j.$},G=Je();nt(j,(t=>{G.$=t?"Восстановить":"Развернуть"})),Ye("div",{id:A,class:["card","position-absolute","bg-dark text-white"],style:_e([Ut,Wt,W,j],(t=>({top:(t[3]?0:s)+"%",left:(t[3]?0:d)+"%",right:(t[3]?0:c)+"%",bottom:(t[3]?0:x)+"%",zIndex:t[2],minWidth:t[1]+"%",minHeight:t[0]+"%"})))},[B("pointerdown",setZIindex),B("inhover",(()=>{Gt.$=A})),B("infocus",setZIindex)])(Ye("div",{class:["card-header","d-flex align-items-center","p-1 overflow-hidden user-select-none"],"style--z-index":"1"},[Tt($t([{title:G,click:toggleFullscreen},,{title:"Закрыть",click:windowClose}]),!0)])(Ye("div",{class:["flex-fill","text-truncate","px-1"],style:"margin-bottom:-0.0625em;"},[B("dblclick",toggleFullscreen),n(((t,s)=>{clearSelection();const[d,c,x,A,O,I]=t.detail;if(!c.$){d[0]=t.type;const c=s.parent.parent.node;let W;"start"===t.type?(setTimeout((t=>{"end"!==t[0]&&showResizeGrid(s.node.style.cursor="move")}),125,d),W=getComputedStyle(c)):W=c.style;const j=parseFloat(W.top)+t.delta.y,G=parseFloat(W.left)+t.delta.x,P=parseFloat(W.right)-t.delta.x,X=parseFloat(W.bottom)-t.delta.y;if(W=c.style,"end"===t.type){hideResizeGrid(),s.node.style.cursor="";const t=getComputedStyle(c.parentElement);W.top=x(setSize(t.height,j))+"%",W.left=A(setSize(t.width,G))+"%",W.right=O(setSize(t.width,P))+"%",W.bottom=I(setSize(t.height,X))+"%"}else W.top=j+"px",W.left=G+"px",W.right=P+"px",W.bottom=X+"px"}}),[[""],j,setTop,setLeft,setRight,setBottom])])(He(_e([t],(t=>t[0]||A)))),Ye("div",{class:"text-nowrap"})(Ie((title_btn("dash-lg","dark",noop),title_btn("plus-lg","dark",toggleFullscreen),title_btn("x-lg","danger",windowClose))))),Ye("div",{class:["card-body","position-relative"],"style--z-index":"1"})(Ye("div",{style:"z-index:1;position:absolute;top:2px;bottom:2px;left:2px;right:2px;"})(ze()((()=>{Ie("empty")}))),Ye("div",{class:["position-absolute","top-0","start-0","w-100","h-100"],"style--display":_e([jt],(t=>t[0]===A?"none":"block")),"style--backgroundColor":"rgba(0,0,0,0.05)","style--z-index":"1"},[B("contextmenu-prevent-stop",noop)])()),tt(_e([j],(t=>!t[0])))((()=>{Ye("div",{style:"position:absolute;z-index:1;top:-0.25em;left:0;width:100%;height:0.5em;cursor:ns-resize;"},[n(((t,s)=>{clearSelection();const d=s.parent.parent.node;let c;"start"===t.type?(c=getComputedStyle(d),showResizeGrid("ns-resize")):c=d.style;const x=parseFloat(c.top)+t.delta.y;if(c=d.style,"end"===t.type){hideResizeGrid();const t=getComputedStyle(d.parentElement);c.top=setTop(setSize(t.height,x))+"%"}else c.top=x+"px"}),[setTop])])(),Ye("div",{style:"position:absolute;z-index:1;bottom:-0.25em;left:0;width:100%;height:0.5em;cursor:ns-resize;"},[n(((t,s)=>{clearSelection();const d=s.parent.parent.node;let c;"start"===t.type?(c=getComputedStyle(d),showResizeGrid("ns-resize")):c=d.style;const x=parseFloat(c.bottom)-t.delta.y;if(c=d.style,"end"===t.type){hideResizeGrid();const[s]=t.detail,A=getComputedStyle(d.parentElement);c.bottom=s(setSize(A.height,x))+"%"}else c.bottom=x+"px"}),[setBottom])])(),Ye("div",{style:"position:absolute;z-index:1;top:0;left:-0.25em;width:0.5em;height:100%;cursor:ew-resize;"},[n(((t,s)=>{clearSelection();const d=s.parent.parent.node;let c;"start"===t.type?(c=getComputedStyle(d),showResizeGrid("ew-resize")):c=d.style;const x=parseFloat(c.left)+t.delta.x;if(c=d.style,"end"===t.type){hideResizeGrid();const[s]=t.detail,A=getComputedStyle(d.parentElement);c.left=s(setSize(A.width,x))+"%"}else c.left=x+"px"}),[setLeft])])(),Ye("div",{style:"position:absolute;z-index:1;top:0;right:-0.25em;width:0.5em;height:100%;cursor:ew-resize;"},[n(((t,s)=>{clearSelection();const d=s.parent.parent.node;let c;"start"===t.type?(c=getComputedStyle(d),showResizeGrid("ew-resize")):c=d.style;const x=parseFloat(c.right)-t.delta.x;if(c=d.style,"end"===t.type){hideResizeGrid();const[s]=t.detail,A=getComputedStyle(d.parentElement);c.right=s(setSize(A.width,x))+"%"}else c.right=x+"px"}),[setRight])])(),Ye("div",{style:"position:absolute;z-index:1;top:-0.375em;left:-0.375em;width:0.75em;height:0.75em;cursor:nw-resize;"},[n(((t,s)=>{clearSelection();const d=s.parent.parent.node;let c;"start"===t.type?(c=getComputedStyle(d),showResizeGrid("nw-resize")):c=d.style;const x=parseFloat(c.top)+t.delta.y,A=parseFloat(c.left)+t.delta.x;if(c=d.style,"end"===t.type){hideResizeGrid();const[s,O]=t.detail,I=getComputedStyle(d.parentElement);c.top=s(setSize(I.height,x))+"%",c.left=O(setSize(I.width,A))+"%"}else c.top=x+"px",c.left=A+"px"}),[setTop,setLeft])])(),Ye("div",{style:"position:absolute;z-index:1;top:-0.375em;right:-0.375em;width:0.75em;height:0.75em;cursor:ne-resize;"},[n(((t,s)=>{clearSelection();const d=s.parent.parent.node;let c;"start"===t.type?(c=getComputedStyle(d),showResizeGrid("ne-resize")):c=d.style;const x=parseFloat(c.top)+t.delta.y,A=parseFloat(c.right)-t.delta.x;if(c=d.style,"end"===t.type){hideResizeGrid();const[s,O]=t.detail,I=getComputedStyle(d.parentElement);c.top=s(setSize(I.height,x))+"%",c.right=O(setSize(I.width,A))+"%"}else c.top=x+"px",c.right=A+"px"}),[setTop,setRight])])(),Ye("div",{style:"position:absolute;z-index:1;bottom:-0.375em;left:-0.375em;width:0.75em;height:0.75em;cursor:sw-resize;"},[n(((t,s)=>{clearSelection();const d=s.parent.parent.node;let c;"start"===t.type?(c=getComputedStyle(d),showResizeGrid("sw-resize")):c=d.style;const x=parseFloat(c.bottom)-t.delta.y,A=parseFloat(c.left)+t.delta.x;if(c=d.style,"end"===t.type){hideResizeGrid();const[s,O]=t.detail,I=getComputedStyle(d.parentElement);c.bottom=s(setSize(I.height,x))+"%",c.left=O(setSize(I.width,A))+"%"}else c.bottom=x+"px",c.left=A+"px"}),[setBottom,setLeft])])(),Ye("div",{style:"position:absolute;z-index:1;bottom:-0.375em;right:-0.375em;width:0.75em;height:0.75em;cursor:se-resize;"},[n(((t,s)=>{clearSelection();const d=s.parent.parent.node;let c;"start"===t.type?(c=getComputedStyle(d),showResizeGrid("se-resize")):c=d.style;const x=parseFloat(c.bottom)-t.delta.y,A=parseFloat(c.right)-t.delta.x;if(c=d.style,"end"===t.type){hideResizeGrid();const[s,O]=t.detail,I=getComputedStyle(d.parentElement);c.bottom=s(setSize(I.height,x))+"%",c.right=O(setSize(I.width,A))+"%"}else c.bottom=x+"px",c.right=A+"px"}),[setBottom,setRight])])()})))}const qt=$t([{title:"Создать файл",click:()=>{}},{title:"Создать папку",click:()=>{}},,{title:"Настройки",click:()=>{}},,{title:"__Создать пустое окно__",click:t=>{de(t,(()=>{qe(DesktopWindow)([])}),[])}}]);function DashboardDesktop(){Ye("div",{class:["position-absolute","bottom-0","start-0","end-0"],"style--z-index":"1","style--top":"2em"},[Tt(qt),useClearHoverAndFocusListener])(qe(DesktopWindow)([])),(t=>{const s="rgba(128,128,128,0.25)",d=`linear-gradient(to right, ${s} 1px,transparent 1px),linear-gradient(to bottom,${s} 1px,transparent 1px)`;Ye("div",{class:["position-absolute","bottom-0","start-0","end-0"],style:_e([Ut,Wt,Yt,t],(t=>({zIndex:1,top:t[3],cursor:t[2],display:t[2]?"block":"none",backgroundImage:d,backgroundSize:`${t[1]}% ${t[0]}%`})))},[B("contextmenu-prevent-stop",noop)])()})("2em")}var createCssGragient=()=>{const t=[];for(let s,d=20;d-- >0;)s=[99*random(),99*random(),99*random()].sort(((t,s)=>t-s)),t.push(`linear-gradient(${randomTo(-360,360)}deg, transparent ${s[0]}%, hsl(${randomTo(240,420)},100%,60%) ${s[1]}%, transparent ${s[2]}%)`);return""+t};function DashboardTopbar(){Ye("div",{class:["position-absolute","w-100","top-0","left-0"],"style--z-index":"1","style--height":"2em","style--backgroundColor":"rgba(0,0,0,0.75)"},[Tt((()=>{Qe()(Ie("TopBarContextMenu"))}))])()}function Dashboard(){Ye("div",{class:["position-fixed","w-100","h-100","top-0","start-0"]})(Ye("div",{style:"position:absolute;top:-20px;bottom:-20px;left:-20px;right:-20px;","style--backgroundColor":"hsl(0,80%,60%)","style--backgroundImage":createCssGragient(),"style--filter":"blur(10px)"})(),qe(DashboardTopbar)([]),qe(DashboardDesktop)([]),qe(kt)([]))}console.log(xt),gt((function App(){qe(Dashboard)([])}),{target:document.body,beforeCreated:()=>{console.time("ReaseApp")},onCreated:()=>{console.timeEnd("ReaseApp")}})}();
+
+(function(l, r) { if (!l || l.getElementById('livereloadscript')) return; r = l.createElement('script'); r.async = 1; r.src = '//' + (self.location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1'; r.id = 'livereloadscript'; l.getElementsByTagName('head')[0].appendChild(r) })(self.document);
+(function () {
+    'use strict';
+
+    /* eslint-disable */
+    /*
+    dester builds:
+    __src__/shared/index.ts
+    __src__/utils/is.ts
+    __src__/utils/other.ts
+    __src__/utils/thens.ts
+    __src__/utils/subscribe.ts
+    __src__/attrs.ts
+    __src__/listen.ts
+    __src__/resize.ts
+    __src__/ReaseObserveble.ts
+    __src__/main.ts
+    __src__/global.ts
+    __src__/window.ts
+    index.ts
+    */
+    var e = {
+        svg: "http://www.w3.org/2000/svg",
+        math: "http://www.w3.org/1998/Math/MathML"
+    }, t = "undefined" != typeof window, r$1 = {}, n$1 = e => e && e._ && e._.ir === r$1, s = Array.isArray, a$1 = e => "function" == typeof e, o = e => null != e && a$1(e.then), i$1 = e => null != e && a$1(e.subscribe), l = /^(?:area|base|br|col|command|embed|hr|img|input|keygen|link|meta|param|source|track|wbr)$/, h = e => l.test(e), u = Object, c = u.defineProperty, f = u.getPrototypeOf, d = u.getOwnPropertyDescriptor, v = () => {}, p = () => v, g = e => e, _ = (e, t, r) => {
+        e.then((e => {
+            b(e, t, r);
+        }));
+    }, b = (e, t, r) => {
+        o(e) ? e.then((e => {
+            b(e, t, r);
+        })) : t(e, r);
+    }, m = (e, t, r) => {
+        if (e.length) for (var n = [], s = [ e.length ], a = s[0]; a-- > 0; ) b(e[a], N, [ n, a, s, t, r ]); else t([], r);
+    }, E = e => {
+        var t, r = !1, n = [];
+        return e((e => {
+            b(e, (e => {
+                r = !0, t = e;
+                for (var s = 0; s < n.length; s++) n[s][0](n[s][1](t));
+            }));
+        })), {
+            then: e => E((s => {
+                r ? s(e(t)) : n.push([ s, e ]);
+            }))
+        };
+    }, N = (e, t) => {
+        t[0][t[1]] = e, --t[2][0] || t[3](t[0], t[4]);
+    }, T = (e, t, r) => {
+        var n = () => {
+            t = v;
+        }, s = [], a = e.subscribe((e => {
+            if (s.push(e), 1 === s.length) {
+                for (var a = 0; a < s.length; a++) t(s[a], r, n);
+                s = [];
+            }
+        }));
+        return n = () => {
+            t = v, a && (a.unsubscribe ? a.unsubscribe() : a()), a = null;
+        }, t === v && n(), n;
+    }, w = (e, t, r) => {
+        var n = v, s = v, a = () => {
+            t = v, n(), s();
+        };
+        return s = T(e, ((e, o, i) => {
+            s = i, n(), n = k(e, ((e, s, o) => {
+                n = o, t(e, r, a);
+            }));
+        })), a;
+    }, k = (e, t, r) => {
+        if (o(e)) e = y(e); else if (!i$1(e)) return t(e, r, v), v;
+        return w(e, t, r);
+    }, L = (e, t, r) => T(R(e), t, r), y = e => ({
+        subscribe: (t, r) => {
+            var n = () => {
+                t = v;
+            };
+            return _(e, (e => {
+                t(e, r, n);
+            })), n;
+        }
+    }), R = e => ({
+        subscribe: (t, r) => {
+            e = e.slice();
+            for (var n = [], s = {}, a = [ 0 ], o = () => {
+                for (var e in s) s[e]();
+            }, i = e.length, l = 0; l < i; l++) s[l] = k(e[l], M, [ l, i, n, s, a, [ !1 ], t, r, o ]);
+            return o;
+        }
+    }), S = (e, t) => ({
+        subscribe: (r, n) => {
+            var s = v, a = v, o = () => {
+                r = v, s(), a();
+            };
+            return a = T(R(e), ((e, i, l) => {
+                a = l, s(), s = k(t(e), ((e, t, a) => {
+                    s = a, r(e, n, o);
+                }));
+            })), o;
+        }
+    }), M = (e, [t, r, n, s, a, o, i, l, h], u) => {
+        n[t] = e, s[t] = u, (a[0] === r || o[0] !== (o[0] = !0) && ++a[0] === r) && i(n.slice(0), l, h);
+    }, A = /^style--/, O = /^class--/, C = e => e, H = e => {
+        switch (typeof e) {
+          case "string":
+            return e;
+
+          case "object":
+            var t = "", r = "";
+            if (s(e)) for (var n, a = 0; a < e.length; a++) (n = H(e[a])) && (t += r + n, r = " "); else if (e) for (var o in e) e[o] && (t += r + o, 
+            r = " ");
+            return t;
+
+          default:
+            return "";
+        }
+    }, I = {}, U = e => I[e] || (I[e] = e.replace(/([A-Z])/g, "-$1").toLowerCase()), $ = e => {
+        switch (typeof e) {
+          case "string":
+            return e;
+
+          case "object":
+            var t = "";
+            if (s(e)) for (var r, n = 0; n < e.length; n++) (r = $(e[n])) && (t += r + (";" === r[r.length - 1] ? "" : ";")); else if (e) for (var a in e) null != e[a] && (t += U(a) + ":" + e[a] + ";");
+            return t;
+
+          default:
+            return "";
+        }
+    }, F = (e, t, r) => {
+        r ? e.classList.add(t) : e.classList.remove(t);
+    }, G = [ (e, t, r, n) => {
+        if (r ? e.setAttribute(t, r) : e.removeAttribute(t), n._.ac) for (var s in n._.ac) F(e, s, n._.ac[s]);
+        (e => {
+            e.home._is.css && !e.home._is.css[2] && e.node && e.node.classList.add(e.home._is.css[1]);
+        })(n);
+    }, H ], j = [ (e, t, r, n) => {
+        if (r ? e.setAttribute(t, r) : e.removeAttribute(t), n._.as) for (var s in n._.as) e.style[s] = n._.as[s];
+    }, $ ], W = [ (e, t, r, n) => {
+        F(e, t = t.slice(7), n._.ac[t] = r);
+    }, C ], P = [ (e, t, r, n) => {
+        e.style[t = t.slice(7)] = n._.as[t] = r;
+    }, C ], x = [ (e, t, r) => {
+        "_" === t[0] || D(e.localName, t, e).set ? e[t] = r : null == r || "" === r ? e.removeAttribute(t) : e.getAttribute(t) !== r && e.setAttribute(t, r);
+    }, C ], z = (e, t) => "class" === e ? G : "style" === e ? j : O.test(e) ? (t.ac || (t.ac = {}), 
+    W) : A.test(e) ? (t.as || (t.as = {}), P) : x, X = {}, D = (e, t, r) => (X[e] || (X[e] = {}))[t] || (X[e][t] = d(f(r), t) || {}), q = (() => {
+        if (!t) return p;
+        var e = document, r = setTimeout, n = clearTimeout, a = (e, t, r, n) => (e.addEventListener(t, r, n), 
+        () => {
+            e.removeEventListener(t, r, n);
+        }), o = e => {
+            e.cancelable && e.preventDefault();
+        }, i = e => {
+            e.stopPropagation();
+        }, l = (e, t) => function(r) {
+            for (var n = 0; n < e.length; n++) e[n].call(this, r, t);
+        }, h = (e, t) => function(r) {
+            r.target === e && t.call(this, r);
+        }, u = e => function(t) {
+            t.isTrusted && e.call(this, t);
+        }, f = (e, t, r) => function(n) {
+            ((e, t) => {
+                var r = t;
+                for (var n in _) {
+                    if (!(_[n][0] in e) && !(_[n][1] in e)) return !1;
+                    r--;
+                }
+                return !r;
+            })(t, r) && e.call(this, n);
+        }, d = [], g = [], _ = {}, b = () => {
+            b = v, a(e, "keyup", (t => {
+                for (var r = 0; r < d.length; r++) d[r][0].length ? d[r][1].call(e, t) : d.splice(r--, 1);
+                delete _[t.code + t.key];
+            }), !1), a(e, "keydown", (t => {
+                _[t.code + t.key] = [ t.code, t.key ];
+                for (var r = 0; r < g.length; r++) g[r][0].length ? g[r][1].call(e, t) : g.splice(r--, 1);
+            }), !1);
+        }, m = (t, r, n, s) => {
+            var a = e.createEvent("CustomEvent");
+            return a.initCustomEvent(t, r, n, s), a;
+        }, E = (e, t) => {
+            e.dispatchEvent(t);
+        }, N = 0, T = () => {
+            N--;
+        }, w = 0, k = () => {
+            w--;
+        }, L = 0, y = () => {
+            L--;
+        }, R = e.head, S = R, M = R, A = R, O = (e, t) => e.contains(t), C = (e, t) => function(r) {
+            (M === e || O(e, M)) && t.call(this, r);
+        }, H = (e, t) => function(r) {
+            (A === e || O(e, A)) && t.call(this, r);
+        }, I = (e, t) => function(r) {
+            M !== e && !O(e, M) && t.call(this, r);
+        }, U = (e, t) => function(r) {
+            A !== e && !O(e, A) && t.call(this, r);
+        }, $ = 0, F = (e, t) => ($++, function(r) {
+            R !== e && !O(e, R) && t.call(e, r);
+        }), G = () => {
+            $--;
+        }, j = 0, W = (e, t) => (j++, function(r) {
+            S !== e && !O(e, S) && t.call(e, r);
+        }), P = () => {
+            j--;
+        }, x = 0, z = (e, t) => (x++, function(r) {
+            M !== e && !O(e, M) && t.call(e, r);
+        }), X = () => {
+            x--;
+        }, D = 0, q = (e, t) => (D++, function(r) {
+            A !== e && !O(e, A) && t.call(e, r);
+        }), B = () => {
+            D--;
+        }, Y = "tapstart tapmove tapend inhover infocus unhover unfocus".split(" "), [Z, J, K, Q, V, ee, te] = Y, re = !1, ne = () => {
+            ne = v;
+            try {
+                a(window, "test", v, c({}, "passive", {
+                    get: () => !(re = !0)
+                }));
+            } catch (e2) {}
+            var t, s, o, i = (e, t) => {
+                var r;
+                R = M, S = A, M = e.target, A = t === Z ? M : A, R !== M && (r = {
+                    event: e
+                }, x && E(R, m(ee, !0, !1, r)), $ && E(M, m(Q, !0, !1, r))), S !== A && (r = {
+                    event: e
+                }, D && E(S, m(te, !0, !1, r)), j && E(A, m(V, !0, !1, r)));
+            }, l = (e, t) => {
+                var r = e.target;
+                switch (t) {
+                  case Z:
+                    N && E(r, m(Z, !0, !0, {
+                        event: e
+                    }));
+                    break;
+
+                  case J:
+                    w && E(r, m(J, !0, !0, {
+                        event: e
+                    }));
+                    break;
+
+                  case K:
+                    L && E(r, m(K, !0, !0, {
+                        event: e
+                    }));
+                }
+            }, h = () => {
+                t = !1;
+            }, u = (e, r) => {
+                e.touches.length < 2 && (t = !0, l(e, r));
+            }, f = (e, a) => {
+                t ? (n(s), s = r(h)) : l(e, a);
+            };
+            for (var d in o = "onpointermove" in e ? {
+                pointerdown: e => {
+                    i(e, Z);
+                },
+                pointermove: e => {
+                    i(e, J);
+                },
+                pointerup: e => {
+                    i(e, K);
+                },
+                pointercancel: e => {
+                    i(e, K);
+                },
+                touchstart: e => {
+                    u(e, Z);
+                },
+                touchmove: e => {
+                    u(e, J);
+                },
+                touchend: e => {
+                    u(e, K);
+                },
+                touchcancel: e => {
+                    u(e, K);
+                },
+                mousedown: e => {
+                    f(e, Z);
+                },
+                mousemove: e => {
+                    f(e, J);
+                },
+                mouseup: e => {
+                    f(e, K);
+                }
+            } : {
+                touchstart: e => {
+                    i(e, Z), u(e, Z);
+                },
+                touchmove: e => {
+                    i(e, J), u(e, J);
+                },
+                touchend: e => {
+                    i(e, K), u(e, K);
+                },
+                touchcancel: e => {
+                    i(e, K), u(e, K);
+                },
+                mousedown: e => {
+                    i(e, Z), f(e, Z);
+                },
+                mousemove: e => {
+                    i(e, J), f(e, J);
+                },
+                mouseup: e => {
+                    i(e, K), f(e, K);
+                }
+            }) a(e, d, o[d], !0);
+        };
+        return (e, t, r, n) => {
+            for (var c, v, p = s(r) ? r.slice() : [ r ], _ = l(p, n), m = {}, E = 0, R = [], S = () => {
+                for (p.length = 0; R.length; ) R.pop()();
+            }, M = !1, A = !1, O = !1, $ = !1, j = t.split(/[^a-z\d]+/i), x = j.length; x--; ) if (v = j[x]) switch (v) {
+              case "once":
+                p.push(S);
+                break;
+
+              case "strict":
+                O = !0;
+                break;
+
+              case "keysup":
+                $ = !0;
+                break;
+
+              case "passive":
+                M = !0;
+                break;
+
+              case "capture":
+                A = !0;
+                break;
+
+              case "self":
+                _ = h(e, _);
+                break;
+
+              case "trusted":
+                _ = u(_);
+                break;
+
+              case "stop":
+                p.unshift(i);
+                break;
+
+              case "prevent":
+                p.unshift(o);
+                break;
+
+              case "inhovered":
+                _ = C(e, _);
+                break;
+
+              case "infocused":
+                _ = H(e, _);
+                break;
+
+              case "unhovered":
+                _ = I(e, _);
+                break;
+
+              case "unfocused":
+                _ = U(e, _);
+                break;
+
+              default:
+                if (1 === v.length || /[A-Z]/.test(v[0])) v in m || (m[v] = !0, E++); else if (!x) switch (c = v) {
+                  case Q:
+                    _ = F(e, _), R.push(G);
+                    break;
+
+                  case V:
+                    _ = W(e, _), R.push(P);
+                    break;
+
+                  case ee:
+                    _ = z(e, _), R.push(X);
+                    break;
+
+                  case te:
+                    _ = q(e, _), R.push(B);
+                }
+            }
+            if (ne(), (E || O) && (b(), _ = f(_, m, E)), c) {
+                switch (c) {
+                  case Z:
+                    N++, R.push(T);
+                    break;
+
+                  case J:
+                    w++, R.push(k);
+                    break;
+
+                  case K:
+                    L++, R.push(y);
+                }
+                var D = re ? {
+                    passive: M,
+                    capture: A
+                } : A;
+                R.push(a(e, c, _, D));
+            } else ($ ? d : g).push([ p, _ ]);
+            return S;
+        };
+    })(), B = (e, t) => r => q(r.node, e, t, r), Y = (() => {
+        if (!t) return p;
+        var e, r = "__REASE_RESIZE", n = setTimeout, s = clearTimeout, a = t => {
+            for (var n, s, a, o, i = 0; i < t.length; i++) if ((s = (n = t[i].target)[r]) && s.l.length) {
+                if (a = n.offsetWidth || n.clientWidth, o = n.offsetHeight || n.clientHeight, s.w !== a || s.h !== o) {
+                    s.w = a, s.h = o;
+                    for (var l, h = {
+                        width: a,
+                        height: o,
+                        target: n
+                    }, u = s.l, c = 0; c < u.length; c++) {
+                        l = u[c];
+                        for (var f = 1; f < l.length; f++) l[f].call(n, h, l[0]);
+                        l.length || u.splice(c--, 1);
+                    }
+                    s.l.length || e.unobserve(n);
+                }
+            } else e.unobserve(n);
+        }, o = () => {
+            o = v;
+            try {
+                e = new ResizeObserver(a);
+            } catch (e3) {
+                var t, i = [], l = () => {
+                    s(t), a(i), i.length && (t = n(l, 25));
+                };
+                e = {
+                    observe: e => {
+                        i.push({
+                            target: e
+                        }), n(l);
+                    },
+                    unobserve: e => {
+                        n((e => {
+                            var t = e[r];
+                            if (!t || !t.l.length) for (var n = i.length; n--; ) if (i[n].target === e) {
+                                i.splice(n, 1);
+                                break;
+                            }
+                        }), 1, e);
+                    }
+                }, document.addEventListener("visibilitychange", (() => {
+                    document.hidden ? s(t) : l();
+                }), !1);
+            }
+        };
+        return (t, s, a) => {
+            o();
+            var i = [ a ].concat(s), l = t[r] || (t[r] = {
+                l: []
+            });
+            l.l.push(i), 1 === l.l.length && e.observe(t);
+            var h = n((() => {
+                var e = t.offsetWidth || t.clientWidth, r = t.offsetHeight || t.clientHeight, n = {
+                    width: e,
+                    height: r,
+                    target: t
+                };
+                l.w = e, l.h = r;
+                for (var s = 1; s < i.length; s++) i[s].call(t, n, i[0]);
+            }));
+            return i.push((() => {
+                clearTimeout(h), i.pop();
+            })), () => {
+                i.length = 0, !l.l[1] && (!l.l[0] || l.l[0] === i) && e.unobserve(t);
+            };
+        };
+    })(), Z = e => t => Y(t.node, e, t), J = (e, t, r) => {
+        e._value = t;
+        var n = e._;
+        n.break = !0;
+        var s, o, i, l = n.items, h = n.queue;
+        if (h.push({
+            f: r,
+            n: t
+        }), 1 === h.length) {
+            for (var u, c = 0; c < h.length; c++) if ((u = h[c].f) || c > h.length - 2) {
+                n.break = !1;
+                for (var f = h[c], d = 0; d < l.length; d++) if ((u || (s = l[d].o, o = f.n, i = void 0, 
+                !((e, t) => e == e ? e === t : t != t)(s, o) || null != (i = o) && "object" == typeof i || a$1(o))) && l[d].s(e._value = l[d].o = f.n), 
+                !u && n.break) {
+                    l[d].o = e._value;
+                    break;
+                }
+            }
+            n.queue = [];
+        }
+        return e;
+    };
+
+    class ReaseSubject {
+        constructor(e, t, r, n) {
+            this._ = {
+                items: [],
+                queue: [],
+                mwSet: r || (r = g),
+                mwGet: n || g,
+                onFst: t || v,
+                onLst: v,
+                break: !1
+            }, this._value = r(e, this);
+        }
+        get on() {
+            return this._.items.length > 0;
+        }
+        get value() {
+            return this._value;
+        }
+        get() {
+            return this._.mwGet(this._value, this);
+        }
+        set(e) {
+            return J(this, this._.mwSet(e, this), !1);
+        }
+        next(e) {
+            return J(this, this._.mwSet(e, this), !0);
+        }
+        clear() {
+            for (var e = this._.items, t = e.length; t-- > 0; ) e[t].u();
+            return this;
+        }
+        subscribe(e, t) {
+            var r = {
+                s: n => {
+                    e(n, t, r.u);
+                },
+                u: () => {
+                    if (r.s !== v) {
+                        for (var e = s.length; e-- > 0; ) if (s[e].s === r.s) {
+                            s.splice(e, 1);
+                            break;
+                        }
+                        r.s = r.u = v, s.length || n.onLst(this);
+                    }
+                },
+                o: {}
+            }, n = this._, s = n.items;
+            return s.length || (n.onLst = n.onFst(this) || v), s.push(r), n.queue.length || r.s(r.o = this._value), 
+            r.u;
+        }
+    }
+
+    var K = ReaseSubject.prototype;
+
+    c(K, "$", {
+        get: K.get,
+        set: K.set
+    });
+
+    for (var Q = function(e, t) {
+        c(K, e[t], {
+            value: function() {
+                var r = this.get();
+                return r = null != r && r[e[t]] ? r[e[t]](arguments) : r, t ? r + "" : r;
+            }
+        });
+    }, V = [ "valueOf", "toString", "toJSON" ], ee = 3; ee-- > 0; ) Q(V, ee);
+
+    var te, re, ne, se = e => e instanceof ReaseSubject, ae = S, oe = {
+        ROOT: "ROOT",
+        COMPONENT: "COMPONENT",
+        ELEMENT: "ELEMENT",
+        ELEMENT_DYNAMIC: "ELEMENT_DYNAMIC",
+        FRAGMENT: "FRAGMENT",
+        SLOT: "SLOT",
+        TEXT: "TEXT",
+        EXPRESSION: "EXPRESSION",
+        COMMENT: "COMMENT",
+        HTML: "HTML",
+        RULES: {
+            TAG: "RULE_TAG",
+            IF: "RULE_IF",
+            ELIF: "RULE_ELIF",
+            ELSE: "RULE_ELSE",
+            WATCH: "RULE_WATCH",
+            AWAIT: "RULE_AWAIT",
+            THEN: "RULE_THEN",
+            FOR: "RULE_FOR"
+        }
+    }, ie = e => {
+        ne = e, te = e.high, re = e.home;
+    }, le = e => {
+        ne = e.parent;
+    }, he = () => {
+        ne = null;
+    };
+
+    function ue(e) {
+        var t = n$1(this) ? this : ne;
+        if (!n$1(t)) throw e;
+        if (t.type !== oe.COMPONENT) throw e;
+        t.on ? (t._.oc || (t._.oc = [])).push(e) : e(t);
+    }
+
+    function ce(e) {
+        var t = n$1(this) ? this : ne;
+        if (!n$1(t)) throw e;
+        t.on ? (t._.od || (t._.od = [])).push(e) : e(t);
+    }
+
+    var fe, de = (e, t, r) => {
+        if (!n$1(e)) throw e;
+        var s = ne, a = te, o = re;
+        ie(e), e.type === oe.COMPONENT && (te = re = e);
+        var i = t.apply(e, r);
+        return ne = s, te = a, re = o, i;
+    }, ve = () => ne, pe = e => {
+        if (e._.esu) for (var t, r = e._.esu; r.length; ) (t = r.pop()) && a$1(t = t.destroy || t) && (ie(e), 
+        t(e));
+    }, ge = {
+        3: [],
+        8: []
+    }, _e = /^(?:audio|bgsound|source|track|video|dialog|link|meta|style|applet|embed|noembed|object|param|canvas|noscript|script|button|datalist|fieldset|form|input|keygen|label|legend|meter|optgroup|option|output|progress|select|textarea|frame|frameset|iframe|noframes)$/i, be = (e, t) => {
+        var r = e.nodeType;
+        if (3 === r || 8 === r) ge[r].length < t && ge[r].push(e); else if (1 === r && !_e.test(e.localName) && ((r = e.localName + e.namespaceURI) in ge || (ge[r] = []), 
+        ge[r].length < t)) {
+            for (var n = e.childNodes, s = n.length; s-- > 0; ) e.removeChild(n[s]);
+            e.value && (e.value = null), e.type && (e.type = null), ge[r].push(e);
+        }
+    }, me = e => {
+        if (e._.od) for (;e._.od.length; ) e._.od.pop()(e);
+    }, Ee = e => {
+        if (e && e.on) {
+            e.on = !1, pe(e), me(e), Le(e), e._.ods && e._.ods();
+            var t = e.node;
+            t && t.parentNode && t.parentNode.removeChild(t), Ne(e), t && be(t, 25), e._.$ && (e._.$ = 1, 
+            Ce(e));
+        }
+    }, Ne = e => {
+        for (;e.children.length; ) Ee(e.children.pop());
+    }, Te = (e, t) => {
+        e._.ods = t, e.on || e._.ods();
+    }, we = e => t => {
+        if (t.root.node) for (var r, n, s = t; ;) if (r = (s = s.parent).node) {
+            1 === r.nodeType ? (e(t, r), r.appendChild(t.node)) : (e(t, r = (n = r).parentNode), 
+            r.insertBefore(t.node, n));
+            break;
+        }
+    }, ke = e => {
+        var t, r, n, s = e.attrs;
+        for (var a in e.props) if (r = s[a] = {
+            is: null,
+            _is: t = e.props[a],
+            high: e.high,
+            _: {
+                $: 0,
+                u: v
+            }
+        }, i$1(t) || o(t) && (t = y(t), 1)) {
+            if (Oe(r), r._.u = w(t, ((e, [t, r, n, s], a) => {
+                r._.u = a, t.on ? r.is !== (r.is = e = s[1](e)) && t.node && s[0](t.node, n, e, t) : a(), 
+                Ce(r);
+            }), [ e, r, a, z(a, e._) ]), !e.on) {
+                r._.u();
+                break;
+            }
+        } else n = z(a, e._), r.is = t = n[1](t), e.node && n[0](e.node, a, t, e);
+    }, Le = e => {
+        var t = e.attrs;
+        if (t) {
+            e.attrs = null;
+            var r = e.node;
+            for (var n in t) r && (r.hasAttribute(n) ? r.removeAttribute(n) : n in r && (r[n] = null)), 
+            t[n]._.u(), Ce(t[n]);
+        }
+    }, ye = (fe = we(((t, r) => {
+        var n = e[t.is] || r.namespaceURI, s = t.is + n, a = s in ge && ge[s].pop();
+        if (a) for (var o = a.attributes, i = o.length; i-- > 0; ) a.removeAttribute(o[i].name); else a = document.createElementNS(n, t.is);
+        t.node = a, (e => {
+            if (e.use) for (var t = e._.esu || (e._.esu = []), r = 0; r < e.use.length; r++) if (ie(e), 
+            t.push(e.use[r](e)), !e.on) {
+                pe(e);
+                break;
+            }
+        })(t), ke(t), ie(t);
+    })), e => {
+        e.attrs = {}, fe(e), e.node || ke(e);
+    }), Re = we((e => {
+        ge[3].length ? (e.node = ge[3].pop()).data = "" : e.node = document.createTextNode("");
+    })), Se = we((e => {
+        ge[3].length ? (e.node = ge[3].pop()).data = e.is : e.node = document.createTextNode(e.is);
+    })), Me = we((e => {
+        ge[8].length ? (e.node = ge[8].pop()).data = e.is : e.node = document.createComment(e.is);
+    })), Ae = (e, t, n, s, a, o) => ne = ne.children[ne.children.push({
+        type: e,
+        name: o,
+        is: n,
+        _is: t,
+        node: null,
+        props: s,
+        use: a,
+        root: ne.root,
+        home: re,
+        high: te,
+        parent: ne,
+        children: [],
+        slots: null,
+        attrs: null,
+        on: ne.on,
+        pub: {},
+        _: {
+            ir: r$1,
+            $: 0
+        }
+    }) - 1], Oe = e => {
+        e.high._.$++, e._.$++;
+    }, Ce = e => {
+        if (e && e._.$ > 0) if (e._.$--, e.type !== oe.COMPONENT && e.type !== oe.ROOT) Ce(e.high); else if (0 === e._.$) {
+            e._.$ = NaN;
+            var t = e._.oc;
+            if (t) {
+                for (var r = [], n = 0; n < t.length && (ie(e), r.push(t[n](e)), e.on); n++) ;
+                he(), m(r, ((e, t) => {
+                    if (t.on) {
+                        for (var r = e.length; r--; ) a$1(e[r]) && ce(e[r]);
+                        Ce(t.high);
+                    } else for (var n = e.length; n--; ) a$1(e[n]) && (ie(t), e[n](t));
+                    he();
+                }), e);
+            } else Ce(e.high);
+        }
+    }, He = e => {
+        if (ne.on && void 0 !== e && "" !== e) {
+            var t = Ae(oe.EXPRESSION, e, "");
+            Se(t), Oe(t), Te(t, k(e, ((e, t, r) => {
+                t.on ? (Ne(t), a$1(e) && (ie(t), e = e.call(t), he()), e = void 0 === e ? "" : "" + e, 
+                t.is !== (t.is = e) && t.node && (t.node.data = e)) : r(), Ce(t);
+            }), t)), le(t);
+        }
+    }, Ie = e => {
+        ne.on && void 0 !== e && "" !== e && (Se(Ae(oe.TEXT, e, "" + e)), le(ne));
+    }, Ue = e => {
+        if (ne.on && void 0 !== e && "" !== e) {
+            var t = Ae(oe.COMMENT, e, "");
+            Me(t), Oe(t), Te(t, k(e, ((e, t, r) => {
+                t.on ? (e = void 0 === e ? "" : "" + e, t.is !== (t.is = e) && t.node && (t.node.data = e)) : r(), 
+                Ce(t);
+            }), t)), le(t);
+        }
+    }, $e = {}, Fe = (e, t) => {
+        if (ne.on) {
+            var r = Ae(oe.HTML, e, "");
+            Re(r), Oe(r), Te(r, k(e, ((e, [t, r, n], s) => {
+                if (t.on) {
+                    if (e = void 0 === e ? "" : "" + e, t.is !== (t.is = e) && t.node) {
+                        for (var a; r.length; ) (a = r.pop()).parentNode.removeChild(a);
+                        if (e) {
+                            var o = t.node.parentNode, i = o.namespaceURI;
+                            ($e[i] || ($e[i] = document.createElementNS(i, "div"))).innerHTML = n ? n.createHTML(e) : e;
+                            for (var l = $e[i].childNodes, h = 0; h < l.length; h++) r.push(a = l[h]), o.insertBefore(a, t.node);
+                        }
+                    }
+                } else s();
+                Ce(t);
+            }), [ r, r._.html = [], t ])), le(r);
+        }
+    }, Ge = (e, t) => {
+        for (var r, n = e.children, s = 0; s < n.length; s++) {
+            if (!(r = n[s]).node || 1 !== r.node.nodeType) if (r.type === oe.HTML) for (;r._.html.length; ) t.appendChild(r._.html[0]); else Ge(r, t);
+            r.node && t.appendChild(r.node);
+        }
+    }, je = e => e[1](), We = t => {
+        var r = ne;
+        r.slots = t, Oe(r), Te(r, k(r._is, ((t, r, n) => {
+            if (r.on) {
+                if (r.is !== (r.is = t)) {
+                    switch (typeof t) {
+                      case "function":
+                        Ne(r), ie(r), qe(t, r.props, r.use)(r.slots);
+                        break;
+
+                      case "string":
+                        if ("r-slot" === t) Ne(r), ie(r), ze(r._.sn, r.props, r.use)((() => {
+                            r.slots.forEach(je);
+                        })); else {
+                            var s = r.children[0], a = h(t), o = !s || s.type !== oe.ELEMENT && s.type !== oe.FRAGMENT || a || t in e, i = !!r.root.node;
+                            if ("r-fragment" === t) {
+                                if (o) Ne(r), ie(r), Qe(r.props, r.use)(r.slots.forEach(je)); else if (pe(s), me(s), 
+                                Le(s), s.type = oe.FRAGMENT, s.is = null, i) {
+                                    var l = s.node, u = l.parentNode;
+                                    u.removeChild(l), Re(s);
+                                    for (var c = s.node, f = l.childNodes, d = f.length; d-- > 0; ) u.insertBefore(f[d], c), 
+                                    c = f[d];
+                                }
+                            } else if (o || s && (s.is in e || h(s.is))) Ne(r), ie(r), Ye(t, r.props, r.use)(a || r.slots.forEach(je)); else {
+                                pe(s), me(s), Le(s);
+                                var v = s.type;
+                                if (s.type = oe.ELEMENT, s.is = t, i) {
+                                    var p = s.node;
+                                    if (p.parentNode.removeChild(p), ye(s), v !== oe.FRAGMENT) for (var g = p.childNodes; g.length; ) s.node.appendChild(g[0]); else Ge(s, s.node);
+                                    Be();
+                                }
+                            }
+                        }
+                        break;
+
+                      default:
+                        Ne(r);
+                    }
+                    he();
+                }
+            } else n();
+            Ce(r);
+        }), r)), le(r);
+    }, Pe = (e, t, r, n) => ne.on ? (Re(Ae(oe.RULES.TAG, e, null, t || {}, r)), ne._.sn = n, 
+    We) : v, xe = e => {
+        for (var t = ne, r = t.home.slots, n = 0; n < r.length && (r[n][0] !== t._is || (ne = t, 
+        te = t.high, re = t.home.home, t.is = !0, r[n][1](), t.on)); n++) ;
+        t.is ? (te = t.high, re = t.home) : e && e.call(t), le(t);
+    }, ze = (e, t, r) => ne.on ? (Re(Ae(oe.SLOT, e, !1, t, r, e)), xe) : v, Xe = (e, t) => {
+        t && !(t[1] in e.css) && (a$1(t[0]) && (t[0] = t[0]("." + t[1])), e.css[t[1]] = "", 
+        e._.$++, e._.od.push(k(t[0], ((e, [t, r, n, s, a], o) => {
+            if (t.on) {
+                if (n[0] !== (n[0] = e) && (t.css[r] = e, t.node)) {
+                    var i = s[0] || (s[0] = document.getElementById(r) || (e => {
+                        var t = document.createElement("style");
+                        return t.id = e, document.head.appendChild(t), t;
+                    })(r));
+                    i.textContent !== e && (i.textContent = e);
+                }
+            } else o();
+            a[0] && (a[0] = !1, Ce(t));
+        }), [ e, t[1], [ "" ], [ null ], [ !0 ] ])));
+    }, De = e => {
+        var t = ne;
+        t.slots = e, Oe(t), te = re = t, t.is.call(t, t.props), Ce(t), te = t.high, re = t.home, 
+        le(t);
+    }, qe = (e, t, r) => ne.on ? (Ae(oe.COMPONENT, e, e, t || {}, r, e.name), Xe(ne.root, e.css), 
+    De) : v, Be = () => {
+        var e = ne;
+        (e => {
+            if (e._.esu) for (var t, r = e._.esu, n = 0; n < r.length; n++) if ((t = r[n]) && a$1(t = t.created) && (ie(e), 
+            t(e), !e.on)) {
+                pe(e);
+                break;
+            }
+        })(e), le(e);
+    }, Ye = (e, t, r) => ne.on ? (ye(Ae(oe.ELEMENT, e, e, t || {}, r)), Be) : v, Ze = e => {
+        e.call(ne);
+    }, Je = (e, t, r, n) => {
+        var s = v;
+        if (ne.on) {
+            var a = Ae(oe.ELEMENT_DYNAMIC, n, e, t || {}, r);
+            Oe(a), Te(a, k(n, ((e, [t, r], n) => {
+                if (t.on) if (t.is !== (e || (e = r)) && t.node) {
+                    pe(t), me(t), Le(t), t.is = e;
+                    var s = t.node;
+                    s.parentNode.removeChild(s), ye(t);
+                    for (var a = s.childNodes; a.length; ) t.node.appendChild(a[0]);
+                    Be();
+                } else t.is = e; else n();
+                Ce(t);
+            }), [ a, e ])), a.on && (ie(a), ye(a), s = Be);
+        }
+        return s;
+    }, Ke = () => {
+        le(ne);
+    }, Qe = (e, t) => ne.on ? (Re(Ae(oe.FRAGMENT, null, null, e, t)), Ke) : v, Ve = (e, t) => t > 0 ? !e : e, et = e => {
+        var t = ne;
+        Oe(t), Te(t, T(R(t.parent._.if), ((e, [t, r, n], s) => {
+            t.on ? t.is !== (t.is = e.every(Ve)) && (t.is ? (ie(t), r.call(t, e[n]), he()) : (me(t), 
+            Ne(t))) : s(), Ce(t);
+        }), [ t, e || v, t.parent._.if.length - 1 ])), le(t);
+    }, tt = (e, t, r) => ne.on ? (Re(Ae(oe.RULES.IF, e, !1, t, r)), ne.parent._.if = [ e ], 
+    et) : v, rt = (e, t, r) => ne.on ? (Re(Ae(oe.RULES.ELIF, e, !1, t, r)), ne.parent._.if = [ e, ...ne.parent._.if || [ !0 ] ], 
+    et) : v, nt = (e, t) => ne.on ? (Re(Ae(oe.RULES.ELSE, null, !1, e, t)), ne.parent._.if = [ !0, ...ne.parent._.if || [ !0 ] ], 
+    et) : v, st = e => {
+        var t = ne;
+        Oe(t), Te(t, k(t._is, ((e, [t, r], n) => {
+            t.on ? (me(t), Ne(t), ie(t), r.call(t, t.is = e), he()) : n(), Ce(t);
+        }), [ t, e || v ])), le(t);
+    }, at = (e, t, r) => ne.on ? (Re(Ae(oe.RULES.WATCH, e, void 0, t, r)), st) : v, ot = e => {
+        var t = ne, r = [ !0 ];
+        Te(t, k(t._is, ((e, [t, r], n) => {
+            r[0] = !1, t.is = t.parent._.await = e, n(), me(t), Ne(t);
+        }), [ t, r ])), r[0] && e && t.on && (ie(t), e.call(t, t.is), he()), le(t);
+    }, it = (e, t, r) => ne.on ? (Re(Ae(oe.RULES.AWAIT, ne._.await = e, void 0, t, r)), 
+    ot) : v, lt = e => {
+        var t = ne;
+        Oe(t), Te(t, k(t._is, ((e, [t, r], n) => {
+            n(), t.on && (ie(t), r.call(t, t.is = e), he()), Ce(t);
+        }), [ t, e || v ])), le(t);
+    }, ht = (e, t) => ne.on ? (Re(Ae(oe.RULES.THEN, ne._.await, void 0, e, t)), lt) : v, ut = e => e > 0 ? 1 : e < 0 ? -1 : 0, ct = (e, t, r, n, s) => {
+        var a;
+        return ie(e), Qe(e.props, e.use)(((a = ne)._.for = [ r, t ], s.call(e, t, r, n))), 
+        he(), a;
+    }, ft = e => {
+        var t = ne;
+        Oe(t), Te(t, k(t._is, ((e, [t, r, n, a], o) => {
+            if (t.on) {
+                var i = t.children, l = typeof e;
+                if (t.is !== (t.is = e) || "object" === l) {
+                    var h;
+                    if (e) switch (l) {
+                      case "number":
+                        if (h = ut(e |= 0)) if (a[0] !== (a[0] = l) || ut(n[0]) !== h) {
+                            Ne(t);
+                            for (var u = 0, c = 0; u !== e && (ct(t, u + h, c++, e, r), t.on); u += h) ;
+                        } else if (h === ut(e - n[0])) for (var f = n[0], d = f * h; f !== e && (ct(t, f + h, d++, e, r), 
+                        t.on); f += h) ; else for (var v = e * h; i.length > v; ) Ee(i.pop()); else Ne(t);
+                        break;
+
+                      case "string":
+                        if (a[0] !== (a[0] = l)) {
+                            Ne(t);
+                            for (var p = 0; p < e.length && (ct(t, e[p], p, e, r), t.on); p++) ;
+                        } else {
+                            for (var g = !1; i.length > e.length; ) Ee(i.pop());
+                            for (var _ = 0; _ < e.length; _++) if (e[_] !== n[0][_]) {
+                                if (!g) for (g = !0; i.length > _; ) Ee(i.pop());
+                                if (ct(t, e[_], _, e, r), !t.on) break;
+                            }
+                        }
+                        break;
+
+                      case "object":
+                        if (s(e)) {
+                            var b = new Map;
+                            if (a[0] !== (a[0] = "a")) for (var m, E = 0; E < e.length && (b.set(e[E], (m = b.get(e[E])) ? m + 1 : 1), 
+                            ct(t, e[E], E, e, r), t.on); E++) ; else {
+                                for (var N, T = 0; T < e.length; T++) if (b.set(e[T], (N = b.get(e[T])) ? N + 1 : 1), 
+                                N = n[0].get(e[T])) n[0].set(e[T], N - 1); else if (ct(t, e[T], T, e, r), !t.on) break;
+                                for (var w, k, L = i.length; L--; ) (k = n[0].get(w = i[L]._.for[1])) && (n[0].set(w, k - 1), 
+                                Ee(i.splice(L, 1)[0]));
+                            }
+                            e = b;
+                        } else if (a[0] !== (a[0] = l)) {
+                            for (var y in Ne(t), e) if (ct(t, e[y], y, e, r), !t.on) break;
+                        } else {
+                            for (var R, S = {}, M = i.length; M--; ) e[(R = i[M]._.for)[0]] === R[1] ? S[R[0]] = !0 : Ee(i.splice(M, 1)[0]);
+                            for (var A in e) if (!0 !== S[A] && (ct(t, e[A], A, e, r), !t.on)) break;
+                        }
+                        break;
+
+                      default:
+                        throw e;
+                    } else a[0] = "", Ne(t);
+                    n[0] = e;
+                }
+            } else o();
+            Ce(t);
+        }), [ t, e, [ null ], [ "" ] ])), le(t);
+    }, dt = (e, t, r) => ne.on ? (Re(Ae(oe.RULES.FOR, e, null, t, r)), ft) : v, vt = e => {
+        if (e.parentNode && e.parentNode.removeChild(e), e.childNodes) for (var t = e.childNodes, r = t.length; r-- > 0; ) vt(t[r]);
+        be(e, 999);
+    }, pt = (e, [t, r, n, s, a]) => {
+        var o = ne, i = te, l = re;
+        if (a && t.node) for (var h, u = t.node.childNodes, c = u.length; c-- > 0; ) "script" !== (h = u[c]).localName && "style" !== h.localName && vt(h);
+        te = re = ne = t, t._.$++, qe(r, n, s)((ce((e => {
+            e.root.node = null, Ee(e.root);
+        })), [])), Ce(t), ne = o, te = i, re = l;
+    }, gt = (e, {hydrate: t = !0, target: r = null, pub: n = {}, props: s = {}, use: a, beforeCreated: o = null, onCreated: i = null} = {}) => {
+        var l = ne;
+        ne = {
+            on: !0,
+            _: {},
+            children: []
+        };
+        var h = Ae(oe.ROOT, null, null, {}, void 0);
+        h.css = {}, h.high = h.home = h.parent = null, h.pub = n, h.node = r, h.root = h, 
+        i && (h._.oc = [ i ]), ce((e => {
+            e.node = null;
+        })), ne = l;
+        var u = [ h, e, s, a, t ];
+        o ? b(o(h), pt, u) : pt(0, u);
+    }, _t = (e, t) => {
+        if (n$1(e) || n$1(e = ve())) return e;
+        throw "not external " + t.name;
+    }, bt = (e, t, r, n) => new ReaseSubject(e, t, r, n), mt = function e(t, r, n, s) {
+        var a = _t(this, e), o = bt(t, r, n, s);
+        return ce.call(a, (() => {
+            o.clear();
+        })), o;
+    }, Et = function e(t, r, n) {
+        var s = _t(this, e), a = T(t, r, n);
+        return ce.call(s, a), a;
+    }, Nt = function e(t, r, n) {
+        var s = _t(this, e), a = k(t, r, n);
+        return ce.call(s, a), a;
+    }, Tt = function(e, t, r) {
+        var n = _t(this, Nt), s = L(e, t, r);
+        return ce.call(n, s), s;
+    }, wt = e => {
+        if (n$1(e)) {
+            if (e.parent) for (var t = e.parent.children, r = t.length; r-- > 0; ) if (t[r] === e) {
+                t.splice(r, 1);
+                break;
+            }
+            Ee(e);
+        }
+    }, kt = function e(t, r, n, s) {
+        var a = _t(this, e), o = q(t, r, n, s);
+        return ce.call(a, o), o;
+    }, Lt = function e(t, r, n) {
+        var s = _t(this, e), a = Y(t, r, n);
+        return ce.call(s, a), a;
+    }, yt = t ? window : {
+        innerWidth: 0,
+        innerHeight: 0,
+        outerWidth: 0,
+        outerHeight: 0
+    }, Rt = 0, St = () => {
+        It.$ = Ut.$ = $t.$ = Ft.$ = window.outerHeight - 1;
+    }, Mt = t ? () => (Rt++ || window.addEventListener("resize", St, !0), () => {
+        --Rt || window.removeEventListener("resize", St, !0);
+    }) : p, At = () => yt.innerWidth, Ot = () => yt.innerHeight, Ct = () => yt.outerWidth, Ht = () => yt.outerHeight, It = bt(0, Mt, At, At), Ut = bt(0, Mt, Ot, Ot), $t = bt(0, Mt, Ct, Ct), Ft = bt(0, Mt, Ht, Ht);
+
+    var rease = /*#__PURE__*/Object.freeze({
+        __proto__: null,
+        $innerHeight: Ut,
+        $innerWidth: It,
+        $outerHeight: Ft,
+        $outerWidth: $t,
+        ReaseSubject: ReaseSubject,
+        TYPES: oe,
+        _$: ae,
+        _c: qe,
+        _d: Je,
+        _e: Ye,
+        _f: Qe,
+        _fc: Ze,
+        _h: Fe,
+        _n: Ue,
+        _ra: it,
+        _rd: Pe,
+        _re: nt,
+        _rf: dt,
+        _ri: tt,
+        _rl: rt,
+        _rt: ht,
+        _rw: at,
+        _s: ze,
+        _t: Ie,
+        _ul: B,
+        _ur: Z,
+        _x: He,
+        context: ve,
+        createReaseApp: gt,
+        destroy: wt,
+        involve: de,
+        isContext: n$1,
+        isSubject: se,
+        isSubscribable: i$1,
+        isThenable: o,
+        listen: kt,
+        listenGlobal: q,
+        onCreated: ue,
+        onDestroy: ce,
+        resize: Lt,
+        resizeGlobal: Y,
+        subject: mt,
+        subjectGlobal: bt,
+        subscribablefySafeAll: R,
+        subscribablefySafeAllWithProxy: S,
+        subscribablefyThenable: y,
+        subscribe: Et,
+        subscribeGlobal: T,
+        subscribeSafe: Nt,
+        subscribeSafeAll: Tt,
+        subscribeSafeAllGlobal: L,
+        subscribeSafeGlobal: k,
+        then: _,
+        thenSafe: b,
+        thenSafeAll: m,
+        thenablefy: E
+    });
+
+    var clearSelection = () => {
+      if (window.getSelection) {
+        // @ts-ignore
+        if (window.getSelection().empty) { // Chrome
+        // @ts-ignore
+          window.getSelection().empty();
+        // @ts-ignore
+        } else if (window.getSelection().removeAllRanges) { // Firefox
+        // @ts-ignore
+          window.getSelection().removeAllRanges();
+        }
+        // @ts-ignore
+      } else if (document.selection) { // IE?
+        // @ts-ignore
+        document.selection.empty();
+      }
+    };
+
+    /* eslint-disable @typescript-eslint/explicit-function-return-type */
+
+    const [DashboardContextmenu, useDashboardContextmenu, schema2contextmenu] = (() => {
+      
+      
+      let lastCEvent;
+
+      const $cmenuFn = bt(null);
+
+      const hideDashboardContextmenu = () => { $cmenuFn.$ = null; };
+      
+      const useDashboardContextmenu = (fn, notSelf) =>
+        (ctx) => q(
+          ctx.node, 'contextmenu-prevent-stop' + (notSelf ? '' : '-self'), (e) => {
+            lastCEvent = e, $cmenuFn.$ = [fn, ctx];
+          }
+        );
+
+      function DashboardContextmenu(
+        
+      ) {
+        const $clientX = mt(0);
+        const $clientY = mt(0);
+        // const $opacity = subject<number>(0)
+        
+        const resizer = (e) => {
+          const w = e.width, h = e.height;
+
+          let clientX = $clientX.$;
+          let clientY = $clientY.$;
+
+          // $opacity.$ = 0
+          // console.log(111, e)
+          clientX = lastCEvent.clientX;
+          clientY = lastCEvent.clientY;
+          if (clientX + w > window.innerWidth) clientX -= w;
+          if (clientY + h > window.innerHeight) clientY -= h;
+          if (clientX < 0) clientX = 0;
+          if (clientY < 0) clientY = 0;
+          // $opacity.$ = 1
+
+          $clientX.$ = clientX;
+          $clientY.$ = clientY;
+        }
+      
+        ;(
+            tt(/*r1.$*/$cmenuFn)(([cmenuFn, ctx]) => {
+                Ye("div", { class: ['position-absolute', 'top-0', 'bottom-0', 'start-0', 'end-0'], "style--z-index": "1" }, [B('tapstart-prevent-stop-self', hideDashboardContextmenu)])(Ze(() => {
+                kt(window, 'resize', hideDashboardContextmenu);
+                clearSelection()
+      
+                ;(
+                        Ye("div", { class: [
+                      'position-fixed',
+                      'animated zoomIn',
+                      'dropdown-menu dropdown-menu-dark show'
+                    ], style: "--animate-duration: 0.125s", "style--left": /*r2.$*/ae([$clientX], (_$0) => (_$0[0] + 'px')), "style--top": /*r2.$*/ae([$clientY], (_$0) => (_$0[0] + 'px')) }, [Z(resizer), B('contextmenu-prevent-stop', []), B('click-prevent-stop', hideDashboardContextmenu)])(Ze(() => { cmenuFn(ctx); }))
+
+                );
+              }));
+
+          })
+
+        );
+      }
+
+      const schema2contextmenu = (
+        SCHEMA
+      ) => (ctx) => {
+        for (const schema of SCHEMA) {
+          if (schema) {
+              Ye("li")(
+        Ye("button", { type: "button", class: "dropdown-item" }, [B('click', () => { schema.click(ctx); })])(
+          He(/*r1.$*/schema.title)
+        )
+      );
+
+          } else {
+              Ye("li")(
+        Ye("hr", { class: "dropdown-divider" })()
+      );
+
+          }
+        }
+      };
+
+      // DashboardContextmenu.css = <style jsx>{`
+      // .card * {
+      //   color: inherit !important;
+      //   background: inherit !important;
+      // }
+      // `}</style>
+
+      return [DashboardContextmenu, useDashboardContextmenu, schema2contextmenu]
+    })();
+
+    const noop = (() => {}); 
+
+    const dataget = (
+      E, key
+    ) => E.getAttribute('data-' + key);
+
+    const __random__ = Math.random;
+
+    const { round, ceil, floor, max, min } = Math;
+
+    const random = () => __random__() || random();
+
+    const randomTo = (
+      min,
+      max = min
+    ) => round(random() * (max - min) + min);
+
+    const __parseFloat__ = parseFloat;
+
+    const random_string = () => randomTo(1e16, 9e16).toString(36);
+
+    /* eslint-disable */
+
+    var a = e => {
+        e.stopPropagation(), e.cancelable && e.preventDefault();
+    }, n = e => {
+        var t = 0, o = 0;
+        if ("touches" in e) {
+            var a = e.touches[0];
+            a && (t = a.clientX, o = a.clientY);
+        } else t = e.clientX, o = e.clientY;
+        return [ t, o ];
+    }, i = (t, o) => i => {
+        var r = i.node, d = {
+            ctx: i,
+            isDown: !1,
+            isMove: !1,
+            dx: 0,
+            dy: 0,
+            ox: 0,
+            oy: 0
+        }, s = [ q(r, "tapstart-capture", ((e, t) => {
+            var o = e.detail.event;
+            t.isDown = !0, t.isMove = !1, t.ox = t.oy = 0, [t.dx, t.dy] = n(o);
+        }), d), q(document, "tapmove-capture", ((e, i) => {
+            var r = e.detail.event;
+            if (i.isMove) {
+                var [d, s] = n(r), l = d - i.dx, v = s - i.dy;
+                i.ox += l, i.oy += v, a(r), t({
+                    type: "move",
+                    event: r,
+                    detail: o,
+                    delta: {
+                        x: l,
+                        y: v
+                    },
+                    offset: {
+                        x: i.ox,
+                        y: i.oy
+                    }
+                }, i.ctx), i.dx = d, i.dy = s;
+            } else i.isDown && (i.isDown = !1, i.isMove = !0, a(r), t({
+                type: "start",
+                event: r,
+                detail: o,
+                delta: {
+                    x: 0,
+                    y: 0
+                },
+                offset: {
+                    x: 0,
+                    y: 0
+                }
+            }, i.ctx));
+        }), d), q(document, "tapend-capture", ((e, n) => {
+            if (n.isMove) {
+                var i = e.detail.event;
+                n.isDown = n.isMove = !1, a(i), t({
+                    type: "end",
+                    event: i,
+                    detail: o,
+                    delta: {
+                        x: 0,
+                        y: 0
+                    },
+                    offset: {
+                        x: n.ox,
+                        y: n.oy
+                    }
+                }, n.ctx);
+            } else n.isDown && (n.isDown = !1);
+        }), d) ];
+        return () => {
+            for (var e = s.length; e-- > 0; ) s[e]();
+        };
+    };
+
+    /* eslint-disable */
+    /*
+    dester builds:
+    index.ts
+    */
+    var r = (r, a, v) => {
+        var e = 1;
+        a < 0 && (a = -a), r < 0 && (e = -1, r = -r);
+        var t = (r += a) % a;
+        r -= t + a;
+        var u = e > 0 ? t >= a / 2 : t > a / 2;
+        return u && (r += a), v && (r += a * v * e, t && e > 0 !== (v < 0 && !u || v > 0 && u) || (r -= (v > 0 ? a : -a) * e)), 
+        r && r * e;
+    };
+
+    /* eslint-disable @typescript-eslint/explicit-function-return-type */
+    // @ts-ignore
+    window.aliquot = r;
+    const $GRID_COEF_W = bt(10);
+    const $GRID_COEF_H = bt(10);
+    L([It, Ut], ([w, h]) => {
+      // $GRID_COEF_W.$ = 100 / ceil(100 / ($GRID_COEF_H.$ / w * h))
+
+      const wc = r(w / 50, 6) || r(w / 50, 4) || 2;
+
+      $GRID_COEF_W.$ = 100 / wc;
+      $GRID_COEF_H.$ = 100 / (r(h / (w / wc), 6) || (w > h ? 2 : 3));
+
+      // console.log([w, h])
+    });
+
+    const $FOCUSED_ID = bt('');
+    const $HOVERED_ID = bt('');
+
+    let Z_INDEX = 1;
+    const Z_INDEXES = {};
+    const fixZIndexes = (
+      lastZindex,
+      id
+    ) => {
+      if (Z_INDEX > 4e9) {
+        Z_INDEX = 1;
+        for (const id in Z_INDEXES) Z_INDEXES[id].$ = ++Z_INDEX;
+        lastZindex.$ = ++Z_INDEX;
+      } else if (Z_INDEX !== lastZindex.$) {
+        lastZindex.$ = ++Z_INDEX;
+      }
+      $HOVERED_ID.$ = $FOCUSED_ID.$ = id;
+    };
+
+    const useClearHoverAndFocusListener = (ctx) =>
+      q(ctx.node, 'tapstart-capture-self', () => {
+        $HOVERED_ID.$ = $FOCUSED_ID.$ = '';
+      });
+
+    const title_btn = (
+      name,
+      bg,
+      onClick
+    ) => {
+        Ye("button", { type: "button", class: [
+          'btn btn-sm btn-' + bg,
+          'p-0 ms-2 lh-1 rounded-pill',
+          'd-inline-flex justify-content-center align-items-center'
+        ], "style--width": "1.625em", "style--height": "1.625em" }, [B('click', onClick)])(
+        Ye("i", { role: "img", "aria-label": name, class: [`bi-${name}`], style: "margin-bottom:-0.0625em;" })()
+      );
+
+    };
+
+    const $IS_RESIZE_GRID = bt('');
+    const showResizeGrid = (cursor) => { $IS_RESIZE_GRID.$ = cursor; };
+    const hideResizeGrid = () => { $IS_RESIZE_GRID.$ = ''; };
+    const desktopResizeGrid = ($styleTop$) => {
+      const imageColor = 'rgba(128,128,128,0.25)';
+      const image = `linear-gradient(to right, ${imageColor} 1px,transparent 1px),linear-gradient(to bottom,${imageColor} 1px,transparent 1px)`
+      ;(
+          Ye("div", { class: ['position-absolute', 'bottom-0', 'start-0', 'end-0'], style: /*r2.$*/ae([$GRID_COEF_H, $GRID_COEF_W, $IS_RESIZE_GRID, $styleTop$], (_$0) => ({
+            zIndex         : 1,
+            top            : _$0[3],
+            cursor         : _$0[2],
+            display        : _$0[2] ? 'block' : 'none',
+            backgroundImage: image,
+            backgroundSize : `${_$0[1]}% ${_$0[0]}%`
+          })) }, [B('contextmenu-prevent-stop', noop)])()
+
+      );
+    };
+
+    const setSize = (wh, coef) => 100 / __parseFloat__(wh) * coef;
+
+    function DesktopWindow(
+      
+      {
+        title,
+        top,
+        left,
+        right,
+        bottom
+      }
+
+
+
+
+
+     = {}
+    ) {
+      const id = this.pub.id = random_string();
+
+      const w = randomTo(30, 50), h = randomTo(30, 50);
+      if (top == null) top = randomTo(0, 100 - h);
+      if (left == null) left = randomTo(0, 100 - w);
+      if (right == null) right = randomTo(0, 100 - w - left);
+      if (bottom == null) bottom = randomTo(0, 100 - h - top);
+      
+      const setTop = (v) =>
+        top = r(max(v, 0), $GRID_COEF_H.$);
+      const setLeft = (v) =>
+        left = r(min(v, 100 - $GRID_COEF_W.$), $GRID_COEF_W.$);
+      const setRight = (v) =>
+        right = r(min(v, 100 - $GRID_COEF_W.$), $GRID_COEF_W.$);
+      const setBottom = (v) =>
+        bottom = r(min(v, 100 - $GRID_COEF_H.$), $GRID_COEF_H.$);
+      setTop(top), setLeft(left), setRight(right), setBottom(bottom);
+
+      const setHoveredId = () => { $HOVERED_ID.$ = id; };
+      const setZIindex = () => { fixZIndexes($zi, id); };
+      const $zi = Z_INDEXES[id] = mt(-1);
+      ce(() => { delete Z_INDEXES[id]; });
+      setZIindex();
+
+      const windowClose = () => { wt(this); };
+      const $isFullscreen = mt(false);
+      const toggleFullscreen = () => { $isFullscreen.$ = !$isFullscreen.$; };
+
+      const $fullscreenTitle = mt();
+      Et($isFullscreen, (isFullscreen) => {
+        $fullscreenTitle.$ = isFullscreen ? 'Восстановить' : 'Развернуть';
+      })
+
+      ;(
+          Ye("div", { id: id, class: ['card', 'position-absolute', 'bg-dark text-white'], style: /*r2.$*/ae([$GRID_COEF_H, $GRID_COEF_W, $zi, $isFullscreen], (_$0) => ({
+            top   : (_$0[3] ? 0 : top) + '%',
+            left  : (_$0[3] ? 0 : left) + '%',
+            right : (_$0[3] ? 0 : right) + '%',
+            bottom: (_$0[3] ? 0 : bottom) + '%',
+            
+            zIndex: _$0[2],
+
+            minWidth : _$0[1] + '%',
+            minHeight: _$0[0] + '%',
+          })) }, [B('inhover', setHoveredId), B('infocus', setZIindex), 
+            i((e, ctx) => {
+              const [typeA, $isFs, setTop, setLeft, setRight, setBottom] = e.detail;
+
+              if (e.type === 'start' && !$isFs.$) {
+                typeA[0] = dataget(e.event.target , 'resize'); 
+              }
+
+              if (typeA[0]) {
+                const dr = typeA[0];
+                const node = ctx.node; 
+
+                let style;
+                if (e.type === 'start') {
+                  style = getComputedStyle(node);
+                  showResizeGrid(dr === 'move' ? dr : dr + '-resize');
+                } else {
+                  style = node.style;
+                }
+
+                let t, l, r, b;
+
+                if (dr === 'move' || dr[0] === 'n') {
+                  t = __parseFloat__(style.top) + e.delta.y;
+                }
+                if (dr === 'move' || dr === 'w' || dr[1] === 'w') {
+                  l = __parseFloat__(style.left) + e.delta.x;
+                }
+                if (dr === 'move' || dr === 'e' || dr[1] === 'e') {
+                  r = __parseFloat__(style.right) - e.delta.x;
+                }
+                if (dr === 'move' || dr[0] === 's') {
+                  b = __parseFloat__(style.bottom) - e.delta.y;
+                }
+
+                style = node.style;
+                if (e.type === 'end') {
+                  typeA[0] = null;
+                  hideResizeGrid();
+                  const pes = getComputedStyle(node.parentElement);
+                  if (dr === 'move' || dr[0] === 'n') {
+                    style.top = setTop(setSize(pes.height, t)) + '%';
+                  }
+                  if (dr === 'move' || dr === 'w' || dr[1] === 'w') {
+                    style.left = setLeft(setSize(pes.width, l)) + '%';
+                  }
+                  if (dr === 'move' || dr === 'e' || dr[1] === 'e') {
+                    style.right = setRight(setSize(pes.width, r)) + '%';
+                  }
+                  if (dr === 'move' || dr[0] === 's') {
+                    style.bottom = setBottom(setSize(pes.height, b)) + '%';
+                  }
+                } else {
+                  clearSelection();
+                  if (dr === 'move' || dr[0] === 'n') {
+                    style.top = t + 'px';
+                  }
+                  if (dr === 'move' || dr === 'w' || dr[1] === 'w') {
+                    style.left = l + 'px';
+                  }
+                  if (dr === 'move' || dr === 'e' || dr[1] === 'e') {
+                    style.right = r + 'px';
+                  }
+                  if (dr === 'move' || dr[0] === 's') {
+                    style.bottom = b + 'px';
+                  }
+                }
+              }
+            }, [[null], $isFullscreen, setTop, setLeft, setRight, setBottom])
+          ])(
+        Ye("div", { class: /*r2.$*/ae([$FOCUSED_ID], (_$0) => ([
+              'card-header',
+              'd-flex align-items-center',
+              'p-1 overflow-hidden user-select-none',
+              _$0[0] === id ? 'bg-primary' : 'bg-secondary'
+            ])), "style--opacity": /*r2.$*/ae([$HOVERED_ID], (_$0) => (_$0[0] === id ? 1 : 0.875)), "style--z-index": "1" }, [useDashboardContextmenu(schema2contextmenu([
+              { title: $fullscreenTitle, click: toggleFullscreen },,
+              { title: 'Закрыть', click: windowClose }
+            ]), true)])(
+          Ye("div", { class: ['flex-fill', 'text-truncate', 'px-1'], style: "margin-bottom:-0.0625em;", "data-resize": "move" }, [B('dblclick', toggleFullscreen)])(
+            He(/*r2.$*/ae([title], (_$0) => (_$0[0] || id)))
+          ),
+          Ye("div", { class: "text-nowrap" })(
+            Ie((
+                title_btn('dash-lg', 'dark', noop),
+                title_btn('plus-lg', 'dark', toggleFullscreen),
+                title_btn('x-lg', 'danger', windowClose)
+              ))
+          )
+        ),
+        Ye("div", { class: ['card-body', 'position-relative'], "style--z-index": "1" })(
+          Ye("div", { style: 'z-index:1;position:absolute;top:2px;bottom:2px;left:2px;right:2px;' })(
+            ze()(() => {
+              Ie("empty");
+            })
+          ),
+          Ye("div", { class: ['position-absolute', 'top-0', 'start-0', 'w-100', 'h-100'], "style--display": /*r2.$*/ae([$FOCUSED_ID], (_$0) => (_$0[0] === id ? 'none' : 'block')), "style--backgroundColor": 'rgba(0,0,0,0.05)', "style--z-index": "1" }, [B('contextmenu-prevent-stop', noop)])()
+        ),
+        tt(/*r2.$*/ae([$isFullscreen], (_$0) => (!_$0[0])))(() => {
+          Ye("div", { style: "position:absolute;z-index:1;top:-0.25em;left:0;width:100%;height:0.5em;cursor:n-resize;", "data-resize": "n" })();
+          Ye("div", { style: "position:absolute;z-index:1;bottom:-0.25em;left:0;width:100%;height:0.5em;cursor:s-resize;", "data-resize": "s" })();
+          Ye("div", { style: "position:absolute;z-index:1;top:0;left:-0.25em;width:0.5em;height:100%;cursor:w-resize;", "data-resize": "w" })();
+          Ye("div", { style: "position:absolute;z-index:1;top:0;right:-0.25em;width:0.5em;height:100%;cursor:e-resize;", "data-resize": "e" })();
+          Ye("div", { style: "position:absolute;z-index:1;top:-0.375em;left:-0.375em;width:0.75em;height:0.75em;cursor:nw-resize;", "data-resize": "nw" })();
+          Ye("div", { style: "position:absolute;z-index:1;top:-0.375em;right:-0.375em;width:0.75em;height:0.75em;cursor:ne-resize;", "data-resize": "ne" })();
+          Ye("div", { style: "position:absolute;z-index:1;bottom:-0.375em;left:-0.375em;width:0.75em;height:0.75em;cursor:sw-resize;", "data-resize": "sw" })();
+          Ye("div", { style: "position:absolute;z-index:1;bottom:-0.375em;right:-0.375em;width:0.75em;height:0.75em;cursor:se-resize;", "data-resize": "se" })();
+        })
+      )
+
+      );
+    }
+
+    /* eslint-disable @typescript-eslint/explicit-function-return-type */
+
+    function DashboardTopbar(
+      
+    ) {
+        Ye("div", { class: ['position-absolute', 'w-100', 'top-0', 'left-0'], "style--z-index": "1", "style--height": '2em', "style--backgroundColor": 'rgba(0,0,0,0.75)' }, [useDashboardContextmenu(() => {
+                Qe()(
+            Ie("TopBarContextMenu")
+          );
+
+        })])(
+      );
+
+    }
+
+    /* eslint-disable @typescript-eslint/explicit-function-return-type */
+
+    const SCHEMA_CONTEXTMENU = [
+      { title: 'Создать файл', click: () => {} },
+      { title: 'Создать папку', click: () => {} },,
+
+      { title: 'Настройки', click: () => {} },,
+
+      {
+        title: '__Создать пустое окно__',
+        click: (ctx) => {
+          de(ctx, () => {
+              qe(DesktopWindow)([]);
+
+          }, []);
+        }
+      },
+    ];
+
+    const contextmenu = schema2contextmenu(SCHEMA_CONTEXTMENU);
+
+    function DashboardDesktop(
+      
+    ) {
+      const styleTop = '2em'
+      ;(
+          Ye("div", { class: ['position-absolute', 'bottom-0', 'start-0', 'end-0'], "style--z-index": "1", "style--top": styleTop }, [useDashboardContextmenu(contextmenu), useClearHoverAndFocusListener])(
+      )
+
+      );
+      desktopResizeGrid(styleTop);
+    }
+
+    var createCssGragient = () => {
+      const res = [];
+      for (let a, i = 20; i-- > 0;) {
+        a = [random() * 99, random() * 99, random() * 99].sort((a, b) => a - b);
+        res.push(`linear-gradient(${
+      randomTo(-360, 360)
+    }deg, transparent ${a[0]}%, hsl(${
+      randomTo(240, 420)
+    },100%,60%) ${a[1]}%, transparent ${a[2]}%)`);
+      }
+
+      return '' + res
+    };
+
+    /* eslint-disable @typescript-eslint/explicit-function-return-type */
+
+    function Dashboard(
+      
+    ) {
+        Ye("div", { class: ['position-fixed', 'w-100', 'h-100', 'top-0', 'start-0'] })(
+        Ye("div", { style: 'position:absolute;top:-20px;bottom:-20px;left:-20px;right:-20px;', "style--backgroundColor": 'hsl(0,80%,60%)', "style--backgroundImage": createCssGragient(), "style--filter": 'blur(10px)' })(),
+        qe(DashboardTopbar)([]),
+        qe(DashboardDesktop)([]),
+        qe(DashboardContextmenu)([])
+      );
+
+    }
+
+    /* eslint-disable @typescript-eslint/explicit-function-return-type */
+
+    function App(
+      
+    ) {
+        qe(Dashboard)([]);
+
+    }
+
+    console.log(rease);
+
+    gt(App, {
+      target: document.body,
+
+      beforeCreated: () => {
+        console.time('ReaseApp');
+      },
+      onCreated: () => {
+        console.timeEnd('ReaseApp');
+      }
+    });
+
+})();

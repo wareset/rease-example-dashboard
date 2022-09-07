@@ -2,7 +2,7 @@ import 'rease/jsx'
 import { TypeReaseContext } from 'rease'
 import { involve } from 'rease'
 
-import DesktopWindow, { desktopResizeGrid, useClearHoverAndFocusListener } from './Desktop/Window.rease'
+import { DesktopWindow, desktopResizeGrid, useClearHoverAndFocusListener } from './Window.rease'
 import { useDashboardContextmenu, schema2contextmenu } from './Contextmenu.rease'
 
 const SCHEMA_CONTEXTMENU = [
@@ -23,7 +23,7 @@ const SCHEMA_CONTEXTMENU = [
 
 const contextmenu = schema2contextmenu(SCHEMA_CONTEXTMENU)
 
-export default function DashboardDesktop(
+export function DashboardDesktop(
   this: TypeReaseContext
 ): void {
   const styleTop = '2em'
@@ -36,7 +36,9 @@ export default function DashboardDesktop(
 
       r-use={[useDashboardContextmenu(contextmenu), useClearHoverAndFocusListener]}
     >
+      {/* <DesktopWindow />
       <DesktopWindow />
+      <DesktopWindow /> */}
     </div>
   )
   desktopResizeGrid(styleTop)

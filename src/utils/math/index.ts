@@ -14,3 +14,6 @@ export const clamp = (
   minValue: number = value,
   maxValue: number = value
 ): number => max(minValue, min(maxValue, value))
+
+const __parseFloat__ = parseFloat
+export { __parseFloat__ as parseFloat }

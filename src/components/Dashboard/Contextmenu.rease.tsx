@@ -2,6 +2,8 @@ import 'rease/jsx'
 import { TypeReaseContext, TypeResizeListener, TypeReaseUse } from 'rease'
 import { subject, subjectGlobal, listen, listenGlobal } from 'rease'
 
+import clearSelection from '../../utils/clearSelection'
+
 const [DashboardContextmenu, useDashboardContextmenu, schema2contextmenu] = (() => {
   type TypeFn = (ctx: TypeReaseContext) => void
   
@@ -26,13 +28,23 @@ const [DashboardContextmenu, useDashboardContextmenu, schema2contextmenu] = (() 
     // const $opacity = subject<number>(0)
     
     const resizer: TypeResizeListener<any> = (e) => {
+      const w = e.width, h = e.height
+
+      let clientX = $clientX.$
+      let clientY = $clientY.$
+
       // $opacity.$ = 0
       // console.log(111, e)
-      $clientX.$ = lastCEvent.clientX
-      $clientY.$ = lastCEvent.clientY
-      if ($clientX.$ + e.width > window.innerWidth) $clientX.$ -= e.width
-      if ($clientY.$ + e.height > window.innerHeight) $clientY.$ -= e.height
+      clientX = lastCEvent.clientX
+      clientY = lastCEvent.clientY
+      if (clientX + w > window.innerWidth) clientX -= w
+      if (clientY + h > window.innerHeight) clientY -= h
+      if (clientX < 0) clientX = 0
+      if (clientY < 0) clientY = 0
       // $opacity.$ = 1
+
+      $clientX.$ = clientX
+      $clientY.$ = clientY
     }
   
     ;(
@@ -42,10 +54,11 @@ const [DashboardContextmenu, useDashboardContextmenu, schema2contextmenu] = (() 
           style--z-index="1"
           // style--backgroundColor="rgba(0,0,0,0.1)"
   
-          r-on-pointerdown-prevent-stop-self={hideDashboardContextmenu}
+          r-on-tapstart-prevent-stop-self={hideDashboardContextmenu}
   
           r-children={() => {
             listen(window, 'resize', hideDashboardContextmenu)
+            clearSelection()
   
             ;(
               <div
@@ -62,7 +75,7 @@ const [DashboardContextmenu, useDashboardContextmenu, schema2contextmenu] = (() 
   
                 r-on-resize={resizer}
 
-                r-on-contextmenu-prevent-stop={() => {}}
+                r-on-contextmenu-prevent-stop={[]}
                 r-on-click-prevent-stop={hideDashboardContextmenu}
   
                 r-children={() => { cmenuFn(ctx) }}
@@ -107,5 +120,4 @@ const [DashboardContextmenu, useDashboardContextmenu, schema2contextmenu] = (() 
   return [DashboardContextmenu, useDashboardContextmenu, schema2contextmenu]
 })()
 
-export default DashboardContextmenu
-export { useDashboardContextmenu, schema2contextmenu }
+export { DashboardContextmenu, useDashboardContextmenu, schema2contextmenu }
