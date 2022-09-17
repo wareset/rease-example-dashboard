@@ -9,3 +9,10 @@ export const str2num = (t: string): number => {
   // console.log(n)
   return n // .toString(36).replace(/\./, '')
 }
+
+export const getExt = (filepath: string): string => {
+  let _ext = ''
+  const idx = filepath.lastIndexOf('.')
+  if (idx > -1) _ext = filepath.slice(idx + 1)
+  return _ext
+}

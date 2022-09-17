@@ -71,7 +71,9 @@ export function DashboardDesktop(
         ]}
       >
 
-        {[...Array(randomTo(1, 20))].forEach(() => { <Shortcut/> })}
+        {[...Array(10 * randomTo(10, 10))].forEach((_v, k) => {
+          <Shortcut name={'' + k + '.' + (k % 2 ? 'asd' : 'zxc') }/>
+        })}
       </div>
 
       {/* <DesktopWindow />

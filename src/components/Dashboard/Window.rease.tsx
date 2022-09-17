@@ -16,6 +16,9 @@ import { onPan } from 'rease-use'
 
 import aliquot from 'aliquot'
 
+// @ts-ignore
+window.aliquot = aliquot
+
 const $GRID_SIZE = subjectGlobal<number>(50)
 const $GRID_COEF = subjectGlobal<{ W: number, H: number }>({ W: 2, H: 2 })
 subscribeSafeAllGlobal([$innerWidth, $innerHeight, $GRID_SIZE], ([w, h, gridSize]) => {
