@@ -1,9 +1,13 @@
 {
   "exclude": ["**/node_modules"],
-  "include": ["**/src/**/*.ts", "**/src/**/*.tsx"],
+  "include": ["./src/**/*.ts", "./src/**/*.tsx"],
   "compilerOptions": {
     "baseUrl": "./src",
     "paths": {
+      "#apps/*": ["components/apps/*"],
+      "#components/*": ["components/*"],
+      "#Dashboard/*": ["components/Dashboard/*"],
+      "#utils/*": ["utils/*"]
     },
     "jsx": "preserve",
     "target": "esnext",

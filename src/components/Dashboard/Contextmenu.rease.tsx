@@ -2,9 +2,9 @@ import 'rease/jsx'
 import { TypeReaseContext, TypeResizeListener, TypeReaseUse } from 'rease'
 import { subject, subjectGlobal, listen, listenGlobal } from 'rease'
 
-import clearSelection from '../../utils/clearSelection'
+import clearSelection from '#utils/clearSelection'
 
-const [DashboardContextmenu, useDashboardContextmenu, schema2contextmenu] = (() => {
+const [DashboardContextmenu, useContextmenu, createContextmenu] = (() => {
   type TypeFn = (ctx: TypeReaseContext) => void
   
   let lastCEvent!: MouseEvent | PointerEvent
@@ -13,9 +13,9 @@ const [DashboardContextmenu, useDashboardContextmenu, schema2contextmenu] = (() 
 
   const hideDashboardContextmenu = (): void => { $cmenuFn.$ = null }
   
-  const useDashboardContextmenu = (fn: TypeFn, notSelf?: boolean): TypeReaseUse =>
+  const useContextmenu = (fn: TypeFn, self?: boolean): TypeReaseUse =>
     (ctx) => listenGlobal(
-      ctx.node!, 'contextmenu-prevent-stop' + (notSelf ? '' : '-self'), (e: any) => {
+      ctx.node!, 'contextmenu-prevent-stop' + (!self ? '' : '-self'), (e: any) => {
         lastCEvent = e, $cmenuFn.$ = [fn, ctx]
       }
     )
@@ -88,7 +88,7 @@ const [DashboardContextmenu, useDashboardContextmenu, schema2contextmenu] = (() 
     )
   }
 
-  const schema2contextmenu = (
+  const createContextmenu = (
     SCHEMA: ({ title: any, click: Function } | undefined)[]
   ) => (ctx: TypeReaseContext): void => {
     for (const schema of SCHEMA) {
@@ -117,7 +117,7 @@ const [DashboardContextmenu, useDashboardContextmenu, schema2contextmenu] = (() 
   // }
   // `}</style>
 
-  return [DashboardContextmenu, useDashboardContextmenu, schema2contextmenu]
+  return [DashboardContextmenu, useContextmenu, createContextmenu]
 })()
 
-export { DashboardContextmenu, useDashboardContextmenu, schema2contextmenu }
+export { DashboardContextmenu, useContextmenu, createContextmenu }

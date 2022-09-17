@@ -1,7 +1,11 @@
 import 'rease/jsx'
 import { TypeReaseContext } from 'rease'
+import { involve } from 'rease'
 
-import { useDashboardContextmenu } from './Contextmenu.rease'
+import { useContextmenu, createContextmenu } from './Contextmenu.rease'
+import { DesktopWindow, visibleAllWindows, collapseAllWindows } from './Window.rease'
+
+import { DashboardTopbarSettings } from '#apps/TopbarSettings'
 
 export function DashboardTopbar(
   this: TypeReaseContext
@@ -13,8 +17,21 @@ export function DashboardTopbar(
     style--height={'2em'}
     style--backgroundColor={'rgba(0,0,0,0.75)'}
 
-    r-use={[useDashboardContextmenu(() => {
-      <>TopBarContextMenu</>
-    })]}
+    r-use={[useContextmenu(createContextmenu([
+      {
+        title: 'Настройки панели',
+        click: (ctx: TypeReaseContext): void => {
+          involve(ctx.root.pub.DashboardDesktop, () => {
+            <DesktopWindow
+              title="Настройки панели"
+              component={DashboardTopbarSettings}
+            />
+          }, [])
+        }
+      },,
+    
+      { title: 'Показать все окна', click: visibleAllWindows },
+      { title: 'Свернуть все окна', click: collapseAllWindows }
+    ]))]}
   ></div>
 }

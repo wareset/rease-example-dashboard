@@ -1,3 +1,5 @@
+import tsconfig from './tsconfig.json'
+
 import rease from 'rollup-plugin-rease'
 import babel from '@rollup/plugin-babel'
 import sucrase from '@rollup/plugin-sucrase'
@@ -5,6 +7,8 @@ import { terser } from 'rollup-plugin-terser'
 import commonjs from '@rollup/plugin-commonjs'
 import resolve from '@rollup/plugin-node-resolve'
 import livereload from 'rollup-plugin-livereload'
+
+import { tsconfigAliases } from './cfg/tsconfig-aliases'
 
 const production = !process.env.ROLLUP_WATCH
 
@@ -43,6 +47,7 @@ export default {
       debug     : false,
       extensions: ['.rease.ts', '.rease.tsx']
     }),
+    tsconfigAliases(tsconfig),
     resolve({
       browser   : true,
       extensions: ['.mjs', '.js', '.jsx', '.ts', '.tsx', '.json']

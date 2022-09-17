@@ -1,3 +1,5 @@
+import { TypeReaseContext } from 'rease'
+
 export const noop = ((): void => {}) as (...a: any[]) => any
 
 export const reflow = (element: HTMLElement): any => element.offsetHeight
@@ -12,3 +14,11 @@ export const dataset = (
 export const dataget = (
   E: HTMLElement | SVGElement, key: string
 ): string | null => E.getAttribute('data-' + key)
+
+export const getParentReaseContextBy = (
+  ctx: TypeReaseContext, key: string, value: any
+): TypeReaseContext | null => {
+  let parent = ctx as any
+  while ((parent = ctx.parent) && parent[key] !== value);
+  return parent
+}

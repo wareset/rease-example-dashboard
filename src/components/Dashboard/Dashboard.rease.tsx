@@ -2,10 +2,8 @@ import 'rease/jsx'
 import { TypeReaseContext } from 'rease'
 
 import { DashboardTopbar } from './Topbar.rease'
-import { DashboardDesktop } from './Desktop.rease'
+import { DashboardDesktop, $WALLPAPPER } from './Desktop.rease'
 import { DashboardContextmenu } from './Contextmenu.rease'
-
-import createCssGragient from '../../utils/createCssGragient'
 
 export function Dashboard(
   this: TypeReaseContext
@@ -16,7 +14,7 @@ export function Dashboard(
     <div
       style={'position:absolute;top:-20px;bottom:-20px;left:-20px;right:-20px;'}
       style--backgroundColor={'hsl(0,80%,60%)'}
-      style--backgroundImage={createCssGragient()}
+      style--backgroundImage={$WALLPAPPER!!}
       style--filter={'blur(10px)'}
     />
     <DashboardTopbar/>
