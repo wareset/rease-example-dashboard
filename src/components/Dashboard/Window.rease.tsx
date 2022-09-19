@@ -2,7 +2,10 @@ import 'rease/jsx'
 // import ENV from 'rease/env'
 import { TypeReaseContext, TypeReaseProp, TypeReaseSubject } from 'rease'
 import { subject, subjectGlobal, onDestroy, destroy, subscribe, subscribeSafe } from 'rease'
-import { subscribeSafeAllGlobal, $innerWidth, $innerHeight } from 'rease'
+import { subscribeSafeAllGlobal } from 'rease'
+import { infocusElement as dispatchInfocusEvent } from 'rease'
+
+import { $windowForResize } from '#stores/window'
 
 import { useContextmenu, createContextmenu } from './Contextmenu.rease'
 
@@ -17,16 +20,22 @@ import { onPan } from 'rease-use'
 import aliquot from 'aliquot'
 
 // @ts-ignore
-window.aliquot = aliquot
+// window.aliquot = aliquot
 
 const $GRID_SIZE = subjectGlobal<number>(50)
-const $GRID_COEF = subjectGlobal<{ W: number, H: number }>({ W: 2, H: 2 })
-subscribeSafeAllGlobal([$innerWidth, $innerHeight, $GRID_SIZE], ([w, h, gridSize]) => {
-  const ws = w / gridSize, wc = aliquot(ws, 6) || aliquot(ws, 4) || aliquot(ws, 3) || 2
-  const hs = h / (w / wc), hc = aliquot(hs, 6) || aliquot(hs, 4) || aliquot(hs, 3) || 2
-  const gc = $GRID_COEF.$, W = 100 / wc, H = 100 / hc
-  if (gc.W !== W || gc.H !== H) gc.W = W, gc.H = H, $GRID_COEF.next(gc)
-})
+const $GRID_COEF = subjectGlobal<{ W: number, H: number }>(
+  { W: 2, H: 2 },
+  ($val) =>
+    subscribeSafeAllGlobal(
+      [$windowForResize, $GRID_SIZE], ([window, gridSize], [val, $val]) => {
+        const w = window.innerWidth!, h = window.innerHeight!
+        const ws = w / gridSize, wc = aliquot(ws, 6) || aliquot(ws, 4) || aliquot(ws, 3) || 2
+        const hs = h / (w / wc), hc = aliquot(hs, 6) || aliquot(hs, 4) || aliquot(hs, 3) || 2
+        const W = 100 / wc, H = 100 / hc
+        if (val.W !== W || val.H !== H) val.W = W, val.H = H, $val.next(val)
+      }, [$val.$, $val]
+    )
+)
 
 const $HOVERED_WINDOW = subjectGlobal<TypeReaseContext | null>(null)
 const $FOCUSED_WINDOW = subjectGlobal<TypeReaseContext | null>(null)
@@ -56,28 +65,28 @@ const setZIndex = (
 }
 
 const title_btn = (
-  name: string,
+  name: TypeReaseProp<string>,
   bg: string,
   onClick: Function
 ): void => {
   <button
     type="button"
     class={[
-      'btn btn-sm btn-' + bg,
-      'p-0 ms-2 lh-1 rounded-pill',
-      'd-inline-flex justify-content-center align-items-center'
+      'btn btn-sm bg-white text-' + bg,
+      'p-0 lh-1 rounded-pill',
+      'd-inline-flex justify-content-center align-items-center align-content-center'
     ]}
 
-    style--width="1.625em"
-    style--height="1.625em"
+    style="width:1.625em;height:1.625em;margin-left:0.625em;"
   
     r-on-click={onClick}
   >
     <i
       role="img"
-      aria-label={name}
-      class={[`bi-${name}`]}
-      style="margin-bottom:-0.0625em;"
+      aria-label={name!!}
+      class={[`bi-${name!!}-circle-fill`]}
+      style="font-size:1.8em;"
+      // style="margin-bottom:-0.0625em;"
     />
   </button>
 }
@@ -107,6 +116,7 @@ export const desktopResizeGrid = ($styleTop$: any): void => {
       }]}
 
       r-on-contextmenu-prevent-stop={noop}
+
     />
   )
 }
@@ -119,6 +129,7 @@ export function DesktopWindow<F extends((...args: any) => any)>(
     component,
     componentProps,
     title,
+    isFullscreen,
     top,
     left,
     right,
@@ -127,6 +138,7 @@ export function DesktopWindow<F extends((...args: any) => any)>(
     component?: F
     componentProps?: Parameters<F>
     title?: TypeReaseProp<string>
+    isFullscreen?: boolean
     top?: number
     left?: number
     right?: number
@@ -175,13 +187,15 @@ export function DesktopWindow<F extends((...args: any) => any)>(
   /*
     BEGIN $isFullscreen
   */
+  const $fullscreenIcon = subject<string>('')
   const $fullscreenLabel = subject<string>('')
   const $fullscreenTransition = subject<boolean>(false)
-  const $isFullscreen = pub.$isFullscreen = subject<boolean>(false)
-  subscribe($isFullscreen, (isFullscreen, [$Label, $Transition]) => {
-    $Label.$ = isFullscreen ? 'Восстановить' : 'Развернуть'
+  const $isFullscreen = pub.$isFullscreen = subject<boolean>(!!isFullscreen)
+  subscribe($isFullscreen, (isFullscreen, [$Icon, $Label, $Transition]) => {
+    if (!isFullscreen) $Label.$ = 'Развернуть', $Icon.$ = 'arrow-up-right'
+    else $Label.$ = 'Восстановить', $Icon.$ = 'arrow-down-left'
     $Transition.$ = true, setTimeout(() => { $Transition.$ = false }, 250)
-  }, [$fullscreenLabel, $fullscreenTransition])
+  }, [$fullscreenIcon, $fullscreenLabel, $fullscreenTransition])
   /*
     END $isFullscreen
   */
@@ -189,7 +203,7 @@ export function DesktopWindow<F extends((...args: any) => any)>(
   /*
     BEGIN $zIndex
   */
-  const $zIndex = Z_INDEXES[id] = subject<number>(-1)
+  const $zIndex = Z_INDEXES[id] = subject<number>(++Z_INDEX)
   onDestroy(() => { delete Z_INDEXES[id] })
   /*
     END $zIndex
@@ -198,15 +212,15 @@ export function DesktopWindow<F extends((...args: any) => any)>(
   /*
     BEGIN $isHovered and $isFocused
   */
-  const $isHovered = pub.$isHovered = subject<boolean>(true)
-  const $isFocused = pub.$isFocused = subject<boolean>(true)
+  const $isHovered = pub.$isHovered = subject<boolean>(false)
+  const $isFocused = pub.$isFocused = subject<boolean>(false)
   subscribe($isHovered, (is, [ctx]) => {
-    if (is !== ($HOVERED_WINDOW.$ === ctx)) {
+    if ((ctx.pub.isHovered = is) !== ($HOVERED_WINDOW.$ === ctx)) {
       $HOVERED_WINDOW.$ = is ? ctx : null
     }
   }, [ctx])
   subscribe($isFocused, (is, [ctx, $zIndex]) => {
-    if (is !== ($FOCUSED_WINDOW.$ === ctx)) {
+    if ((ctx.pub.isFocused = is) !== ($FOCUSED_WINDOW.$ === ctx)) {
       $FOCUSED_WINDOW.$ = is ? (setZIndex($zIndex, ctx), ctx) : null
     }
   }, [ctx, $zIndex])
@@ -229,7 +243,7 @@ export function DesktopWindow<F extends((...args: any) => any)>(
   subscribe($isCollapsed, (isCollapsed) => {
     if (!isCollapsed) $isCollapsedWindow.$ = false
     else {
-      unhover(), unfocus()
+      dispatchInfocusEvent()
       setTimeout(() => { $isCollapsedWindow.$ = true }, 250)
     }
   })
@@ -237,7 +251,7 @@ export function DesktopWindow<F extends((...args: any) => any)>(
     END $isCollapsed
   */
 
-  const windowClose = (): void => { destroy(this) }
+  const windowClose = (): void => { dispatchInfocusEvent(), destroy(this) }
   const toggleFullscreen = (): void => { $isFullscreen.$ = !$isFullscreen.$ }
   const toggleCollapsed = (): void => { $isCollapsed.$ = !$isCollapsed.$ }
 
@@ -263,6 +277,19 @@ export function DesktopWindow<F extends((...args: any) => any)>(
         minHeight: $GRID_COEF!!.H + '%',
       }, $fullscreenTransition!! && 'transition: all 0.25s']}
       style--zIndex={$zIndex!!}
+
+      // r-on-infocus-01={() => {
+      //   console.log('Window infocus')
+      // }}
+      // r-on-unfocus-01={() => {
+      //   console.log('Window unfocus')
+      // }}
+      // r-on-inhover-01={() => {
+      //   console.log('Window inhover')
+      // }}
+      // r-on-unhover-01={() => {
+      //   console.log('Window unhover')
+      // }}
 
       // r-on-tapstart={setZIindex}
       r-on-inhover={inhover}
@@ -368,9 +395,9 @@ export function DesktopWindow<F extends((...args: any) => any)>(
         </div>
         <div class="text-nowrap">
           {(
-            title_btn('dash-lg', 'dark', toggleCollapsed),
-            title_btn('plus-lg', 'dark', toggleFullscreen),
-            title_btn('x-lg', 'danger', windowClose)
+            title_btn('dash', 'dark', toggleCollapsed),
+            title_btn($fullscreenIcon, 'dark', toggleFullscreen),
+            title_btn('x', 'danger', windowClose)
           )}
         </div>
       </div>

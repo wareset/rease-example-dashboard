@@ -1,20 +1,31 @@
 import 'rease/jsx'
 import { TypeReaseContext, TypeResizeListener, TypeReaseUse } from 'rease'
-import { subject, subjectGlobal, listen, listenGlobal } from 'rease'
+import { listenEvent, listenEventGlobal } from 'rease'
+import { subject, subjectGlobal } from 'rease'
+import { infocusElement as dispatchInfocusEvent } from 'rease'
 
 import clearSelection from '#utils/clearSelection'
 
-const [DashboardContextmenu, useContextmenu, createContextmenu] = (() => {
+export const [
+  DashboardContextmenu,
+  useContextmenu,
+  createContextmenu
+] = (() => {
   type TypeFn = (ctx: TypeReaseContext) => void
   
   let lastCEvent!: MouseEvent | PointerEvent
 
   const $cmenuFn = subjectGlobal<null | [TypeFn, TypeReaseContext]>(null)
 
-  const hideDashboardContextmenu = (): void => { $cmenuFn.$ = null }
+  const hideDashboardContextmenu = (): void => {
+    if ($cmenuFn.$) {
+      dispatchInfocusEvent($cmenuFn.$[1].node as any)
+      $cmenuFn.$ = null
+    }
+  }
   
   const useContextmenu = (fn: TypeFn, self?: boolean): TypeReaseUse =>
-    (ctx) => listenGlobal(
+    (ctx) => listenEventGlobal(
       ctx.node!, 'contextmenu-prevent-stop' + (!self ? '' : '-self'), (e: any) => {
         lastCEvent = e, $cmenuFn.$ = [fn, ctx]
       }
@@ -23,42 +34,51 @@ const [DashboardContextmenu, useContextmenu, createContextmenu] = (() => {
   function DashboardContextmenu(
     this: TypeReaseContext
   ): void {
-    const $clientX = subject<number>(0)
-    const $clientY = subject<number>(0)
+    const $client = subject<{ X: number, Y: number }>({ X: 0, Y: 0 })
     // const $opacity = subject<number>(0)
     
-    const resizer: TypeResizeListener<any> = (e) => {
+    const resizer: TypeResizeListener<any> = (e: any) => {
       const w = e.width, h = e.height
 
-      let clientX = $clientX.$
-      let clientY = $clientY.$
+      let { X, Y } = $client.$
 
       // $opacity.$ = 0
       // console.log(111, e)
-      clientX = lastCEvent.clientX
-      clientY = lastCEvent.clientY
-      if (clientX + w > window.innerWidth) clientX -= w
-      if (clientY + h > window.innerHeight) clientY -= h
-      if (clientX < 0) clientX = 0
-      if (clientY < 0) clientY = 0
+      X = lastCEvent.clientX
+      Y = lastCEvent.clientY
+      if (X + w > window.innerWidth) X -= w
+      if (Y + h > window.innerHeight) Y -= h
+      if (X < 0) X = 0
+      if (Y < 0) Y = 0
       // $opacity.$ = 1
 
-      $clientX.$ = clientX
-      $clientY.$ = clientY
+      $client.$ = { X, Y }
     }
   
     ;(
       <r-if r-is={$cmenuFn!!} r-children={([cmenuFn, ctx]) => {
         <div
-          class={['position-absolute', 'top-0', 'bottom-0', 'start-0', 'end-0']}
+          class={['position-fixed', 'top-0', 'bottom-0', 'start-0', 'end-0']}
           style--z-index="1"
           // style--backgroundColor="rgba(0,0,0,0.1)"
+
+          // r-on-infocus-01={() => {
+          //   console.log('Context infocus')
+          // }}
+          // r-on-unfocus-01={() => {
+          //   console.log('Context unfocus')
+          // }}
   
-          r-on-tapstart-prevent-stop-self={hideDashboardContextmenu}
-  
+          r-on-tapstart-self={hideDashboardContextmenu}
+          // r-on-infocus={(e: any) => { e.detail.strict() }}
+          r-on-contextmenu-capture-prevent-stop={[]}
+
           r-children={() => {
-            listen(window, 'resize', hideDashboardContextmenu)
+            listenEvent(window, 'resize', hideDashboardContextmenu)
             clearSelection()
+            // setTimeout(unfocus, 1000)
+
+            // console.log(ctx)
   
             ;(
               <div
@@ -70,12 +90,11 @@ const [DashboardContextmenu, useContextmenu, createContextmenu] = (() => {
                 style="--animate-duration: 0.125s"
                 // style--opacity={$opacity!!}
   
-                style--left={$clientX!! + 'px'}
-                style--top={$clientY!! + 'px'}
+                style--left={$client!!.X + 'px'}
+                style--top={$client!!.Y + 'px'}
   
                 r-on-resize={resizer}
 
-                r-on-contextmenu-prevent-stop={[]}
                 r-on-click-prevent-stop={hideDashboardContextmenu}
   
                 r-children={() => { cmenuFn(ctx) }}
@@ -89,7 +108,7 @@ const [DashboardContextmenu, useContextmenu, createContextmenu] = (() => {
   }
 
   const createContextmenu = (
-    SCHEMA: ({ title: any, click: Function } | undefined)[]
+    SCHEMA: ({ title: any, key?: any, click: Function } | undefined)[]
   ) => (ctx: TypeReaseContext): void => {
     for (const schema of SCHEMA) {
       if (schema) {
@@ -99,7 +118,10 @@ const [DashboardContextmenu, useContextmenu, createContextmenu] = (() => {
             class="dropdown-item"
             r-on-click={() => { schema.click(ctx) }}
           >
-            {schema.title!!}
+            <span>{schema.title!!}</span>
+            <r-if r-is={schema.key!!}>
+              <span class="ms-3 float-end">{schema.key!!}</span>
+            </r-if>
           </button>
         </li>
       } else {
@@ -119,5 +141,3 @@ const [DashboardContextmenu, useContextmenu, createContextmenu] = (() => {
 
   return [DashboardContextmenu, useContextmenu, createContextmenu]
 })()
-
-export { DashboardContextmenu, useContextmenu, createContextmenu }

@@ -1,19 +1,21 @@
 import 'rease/jsx'
 import { TypeReaseContext } from 'rease'
-import { involve, subjectGlobal, context } from 'rease'
+import { involve, context } from 'rease'
 
 import { DesktopWindow, desktopResizeGrid, visibleAllWindows, collapseAllWindows } from './Window.rease'
 import { useContextmenu, createContextmenu } from './Contextmenu.rease'
 
-import createCssGragient from '#utils/createCssGragient'
 import { DashboardDesktopSettings } from '#apps/DesktopSettings'
 import { Shortcut } from '#components/Shortcut'
 
-import { randomTo } from '#utils/math'
+import { changeBackground } from '#stores/background'
 
-export const $WALLPAPPER = subjectGlobal<string>('')
-const changeWallpapper = (): void => { $WALLPAPPER.$ = createCssGragient() }
-changeWallpapper()
+// import { randomTo } from '#utils/math'
+
+import { $isVertical } from '#stores/window'
+
+import { EXTENSIONS } from 'mime-xdg'
+// console.log(EXTENSIONS)
 
 export function DashboardDesktop(
   this: TypeReaseContext
@@ -29,16 +31,30 @@ export function DashboardDesktop(
       {(this.root.pub.DashboardDesktop = context(), '')}
       <div
         class={[
+          'w-auto h-auto',
           'position-absolute top-0 start-0 end-0 bottom-0',
-          'd-flex flex-row flex-wrap align-content-start',
+          'd-flex flex-wrap align-items-start align-content-start justify-content-center',
           'overflow-auto',
+          $isVertical!! ? 'flex-column' : 'flex-row'
           // 'text-break'
+          // 'd-flex align-items-center align-content-center justify-content-center'
         ]}
         style--z-index="1"
         // style--background="rgba(0,220,0,0.5)"
 
+        r-on-wheel={(e: WheelEvent, ctx: TypeReaseContext) => {
+          if (!e.defaultPrevented && e.button === 0 &&
+          !(e.metaKey || e.altKey || e.ctrlKey || e.shiftKey)) {
+            const node = ctx.node as HTMLElement
+            if (node.scrollBy) {
+              e.preventDefault()
+              const delta = e.deltaY
+              $isVertical.$ ? node.scrollBy(delta, 0) : node.scrollBy(0, delta)
+            }
+          }
+        }}
+
         r-use={[
-          // useClearHoverAndFocusListener,
           useContextmenu(createContextmenu([
             { title: 'Создать файл', click: () => {} },
             { title: 'Создать папку', click: () => {} },,
@@ -58,7 +74,7 @@ export function DashboardDesktop(
             { title: 'Показать все окна', click: visibleAllWindows },
             { title: 'Свернуть все окна', click: collapseAllWindows },,
           
-            { title: '__Изменить фон__', click: changeWallpapper },
+            { title: '__Изменить фон__', key: '(Q)', click: changeBackground },
             {
               title: '__Создать пустое окно__',
               click: (ctx: TypeReaseContext): void => {
@@ -71,9 +87,19 @@ export function DashboardDesktop(
         ]}
       >
 
-        {[...Array(10 * randomTo(10, 10))].forEach((_v, k) => {
-          <Shortcut name={'' + k + '.' + (k % 2 ? 'asd' : 'zxc') }/>
-        })}
+        {/* {
+          (() => {
+            let i = 0
+            for (const ext in EXTENSIONS) {
+              <Shortcut
+                name={++i + '.' + ext}
+                isFolder = {Math.random() - 0.5 > 0}
+              />
+              if (i > 96) break
+            }
+          })()
+        } */}
+
       </div>
 
       {/* <DesktopWindow />

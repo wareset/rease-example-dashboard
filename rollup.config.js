@@ -1,13 +1,14 @@
 import tsconfig from './tsconfig.json'
 
+import del from 'rollup-plugin-delete'
 import rease from 'rollup-plugin-rease'
 import babel from '@rollup/plugin-babel'
 import sucrase from '@rollup/plugin-sucrase'
 import { terser } from 'rollup-plugin-terser'
 import commonjs from '@rollup/plugin-commonjs'
 import resolve from '@rollup/plugin-node-resolve'
-import livereload from 'rollup-plugin-livereload'
 
+import { livereload } from './cfg/livereload'
 import { tsconfigAliases } from './cfg/tsconfig-aliases'
 
 const production = !process.env.ROLLUP_WATCH
@@ -34,14 +35,27 @@ function serve() {
 }
 
 export default {
-  input : 'src/index.ts',
+  input : [],
   output: {
     sourcemap: false,
-    format   : 'iife',
-    name     : 'app',
-    file     : 'app/build/bundle.js'
+    compact  : true,
+    format   : 'system',
+    dir      : 'app/build',
+
+    chunkFileNames: '[hash].js' // '_[name]-[hash].js'
   },
   plugins: [
+    del({ targets: 'app/build/*' }),
+    {
+      buildStart() {
+        this.emitFile({
+          type             : 'chunk',
+          id               : 'src/index.ts',
+          fileName         : 'index.js',
+          preserveSignature: 'strict'
+        })
+      }
+    },
     rease({
       env       : 'client',
       debug     : false,

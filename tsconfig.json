@@ -7,6 +7,7 @@
       "#apps/*": ["components/apps/*"],
       "#components/*": ["components/*"],
       "#Dashboard/*": ["components/Dashboard/*"],
+      "#stores/*": ["stores/*"],
       "#utils/*": ["utils/*"]
     },
     "jsx": "preserve",

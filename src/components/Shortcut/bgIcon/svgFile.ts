@@ -23,8 +23,8 @@ export const svgFile = (
 
   const needTitle = extension && extension.length < 6
 
-  let icon = other
-  if (type === 'application') icon = app
+  let icon = app
+  if (type === 'application') icon = other
   else if (type === 'text') icon = text
   else if (type === 'font') icon = font
   else if (type === 'model') icon = model

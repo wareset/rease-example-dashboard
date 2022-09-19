@@ -1,5 +1,6 @@
 {
   "name": "rease-dashboard",
+  "version": "0.0.0",
   "description": "Rease dashboard",
   "scripts": {
     "build": "rollup -c",
@@ -15,6 +16,7 @@
     "@rollup/plugin-sucrase": "^4.0.0",
     "@rollup/plugin-commonjs": "^22.0.0",
     "@rollup/plugin-node-resolve": "^13.3.0",
+    "rollup-plugin-delete": "2.0.0",
     "svgo": "2.8.0",
     "rease": "^0.2.0",
     "rollup": "^2.78.0",

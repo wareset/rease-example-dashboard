@@ -1,8 +1,10 @@
 import 'rease/jsx'
 import { TypeReaseContext, TypeReaseProp } from 'rease'
-import { subscribablefySafeAll } from 'rease'
+import { observablefySafeAll } from 'rease'
 
 import { random_string } from '#utils/string'
+
+import { randomTo } from '#utils/math'
 
 import { getIconClass } from './bgIcon'
 
@@ -10,11 +12,11 @@ export function Shortcut(
   this: TypeReaseContext,
   {
     name,
-    size = 4.8,
+    size = 4,
     inline = false,
-    isFolder = true
+    isFolder
   }: {
-    name?: TypeReaseProp<string>
+    name: TypeReaseProp<string>
     size?: TypeReaseProp<number>
     inline?: TypeReaseProp<boolean>
     isFolder?: TypeReaseProp<boolean>
@@ -25,7 +27,7 @@ export function Shortcut(
 
   ;(
     <r-watch
-      r-is={subscribablefySafeAll(
+      r-is={observablefySafeAll(
         [size, inline, [id, name, isFolder]]
       )}
       r-children={(
@@ -33,10 +35,10 @@ export function Shortcut(
         [number, boolean, [string, string, boolean]]
       ) => {
         <div
-          style={[
-            `width:${inline ? '100%' : size * 2.5 + 'em'}`,
-            `margin:${size / 5}em`,
-          ]}
+          style={
+            `width:${inline ? '100%' : size * 2.25 + 'em'};` +
+            `padding:${size / 5}em;`
+          }
         >
           <div
             id={id}
@@ -45,11 +47,11 @@ export function Shortcut(
               inline ? 'flex-row' : 'flex-column'
             ]}
             // style={['background: #add']}
-            title={name!! || id}
+            title={name!!}
           >
             <div
-              style={[`width:${size}em;height:${size}em;`]}
-              class={getIconClass(name!! || id, isFolder!!)}
+              class={getIconClass(name!!, isFolder!!)}
+              style={`width:${size}em;height:${size}em;`}
             />
             <div
               class={[
@@ -63,10 +65,10 @@ export function Shortcut(
                   'position-absolute top-0 start-0 end-0 bottom-0 ' +
                   'd-flex align-items-center'
                 }
-                style={[`${inline ? 'padding:0 ' : 'padding-top:'}${size / 5}em;`]}
+                style={`${inline ? 'padding:0 ' : 'padding-top:'}${size / 5}em;`}
               >
                 <small class={['text-break', inline && 'text-truncate']}>
-                  {name || id}
+                  {name!! + ' 12345'.repeat(randomTo(0, 10))}
                 </small>
               </div>
             </div>
